@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecycleNow | Plataforma Cívica de Reciclaje</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="contenedor header-contenido">
+      <h1>RecycleNow</h1>
+      <nav aria-label="Navegación principal">
+        <a href="#identifica"><button type="button">Identifica</button></a>
+        <a href="#catalogo-materiales"><button type="button">Residuos</button></a>
+        <a href="#protocolo-preparacion"><button type="button">Preparación</button></a>
+        <a href="#seccion-puntos-acopio"><button type="button">Puntos de acopio</button></a>
+        <a href="#panel-reciclador"><button type="button">Gestión</button></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <section class="caja" id="identifica">
+      <div class="columnas">
+        <div>
+          <h2>Reciclar puede ser más sencillo</h2>
+          <p>Aprende a reconocer qué materiales se pueden reciclar en casa, cómo prepararlos fácilmente y dónde entregarlos de manera segura.</p>
+          <p class="aviso">
+            <strong>Reciclaje responsable:</strong> Cada botella, caja y frasco bien separado evita que la basura termine contaminando nuestras calles y playas.
+          </p>
+        </div>
+        <img src="imagenes/reciclaje-lima.webp" alt="Persona separando materiales reciclables">
+      </div>
+    </section>
+
+    <section class="caja" id="buscador-seccion">
+      <h2>Consulta qué hacer con tu residuo</h2>
+      <p>Escribe el nombre del objeto o toca una de las opciones rápidas para saber cómo reciclarlo:</p>
+      
+      <form id="form-busqueda" role="search">
+        <div class="barra-busqueda-contenedor">
+          <input type="text" id="input-busqueda" placeholder="Ej. botella de agua, caja de leche, aceite usado..." aria-label="Buscar residuo">
+          <button type="submit">Buscar</button>
+        </div>
+      </form>
+
+      <p class="chips-label"><strong>Búsquedas frecuentes:</strong></p>
+      <div class="contenedor-chips">
+        <button type="button" class="chip-busqueda" data-termino="Botellas de plástico">Botellas de plástico</button>
+        <button type="button" class="chip-busqueda" data-termino="Cajas de leche y jugo">Cajas de leche y jugo</button>
+        <button type="button" class="chip-busqueda" data-termino="Aceite de cocina">Aceite de cocina</button>
+      </div>
+
+      <div id="sin-coincidencias" class="aviso oculto" role="alert">
+        <p>⚠️ <strong>Sin coincidencias:</strong> No encontramos información con ese nombre. Prueba con <em>"Botella"</em>, <em>"Caja"</em> o elige un material abajo.</p>
+      </div>
+    </section>
+
+    <section class="caja" id="catalogo-materiales">
+      <h2>Explorar por Tipo de Material</h2>
+      <p>Selecciona un grupo para ver qué residuos puedes reciclar:</p>
+      
+      <div class="filtros-categoria" role="group" aria-label="Filtrar por categoría">
+        <button type="button" class="btn-categoria activo" data-categoria="todos">Todos los materiales</button>
+        <button type="button" class="btn-categoria" data-categoria="plasticos">Plásticos</button>
+        <button type="button" class="btn-categoria" data-categoria="papel">Papel y Cartón</button>
+        <button type="button" class="btn-categoria" data-categoria="vidrio">Vidrio</button>
+        <button type="button" class="btn-categoria" data-categoria="metales">Metales</button>
+        <button type="button" class="btn-categoria" data-categoria="especiales">Residuos especiales</button>
+      </div>
+
+      <div class="cuadricula-residuos" id="catalogo-residuos">
+        <article class="tarjeta-residuo" data-categoria="plasticos" data-nombre="botellas de plastico bebidas agua refresco pet">
+          <span class="badge-categoria">Plásticos</span>
+          <h4>Botellas de plástico</h4>
+          <p>Botellas de agua, gaseosas y jugos. Deben entregarse vacías, enjuagadas y aplastadas.</p>
+        </article>
+
+        <article class="tarjeta-residuo" data-categoria="papel" data-nombre="cajas de leche y jugo tetra pak carton papel">
+          <span class="badge-categoria">Papel y Cartón</span>
+          <h4>Cajas de leche y jugo</h4>
+          <p>Envases de cartón para bebidas. Levanta las esquinas, enjuaga por dentro y aplana la caja.</p>
+        </article>
+
+        <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="aceite de cocina usado vegetal frituras">
+          <span class="badge-categoria">Residuos especiales</span>
+          <h4>Aceite de cocina</h4>
+          <p>Déjalo enfriar, cuela los restos de comida y guárdalo en una botella cerrada. Nunca lo tires al lavadero.</p>
+        </article>
+
+        <article class="tarjeta-residuo" data-categoria="vidrio" data-nombre="botellas y frascos de vidrio">
+          <span class="badge-categoria">Vidrio</span>
+          <h4>Botellas y frascos de vidrio</h4>
+          <p>Envases de conservas y bebidas sanos y limpios. Entrégalos sin chapas ni tapas de metal.</p>
+        </article>
+
+        <article class="tarjeta-residuo" data-categoria="metales" data-nombre="latas de atun leche gaseosa aluminio metal">
+          <span class="badge-categoria">Metales</span>
+          <h4>Latas de conservas y bebidas</h4>
+          <p>Latas de atún, leche y bebidas. Enjuágalas bien y aplástalas un poco para ahorrar espacio.</p>
+        </article>
+
+        <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="pilas y baterias usadas linternas juguetes">
+          <span class="badge-categoria">Residuos especiales</span>
+          <h4>Pilas y baterías usadas</h4>
+          <p>Contienen elementos químicos contaminantes. No van a la basura común; déjalas en contenedores especiales.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="caja" id="protocolo-preparacion">
+      <h2>Pasos para preparar una botella de plástico</h2>
+      <div class="columnas">
+        <div>
+          <p>Sigue estos 4 pasos sencillos antes de llevarla al punto de reciclaje. <strong>Debes completar cada paso en orden:</strong></p>
+          
+          <div class="barra-progreso" aria-label="Progreso de preparación">
+            <div id="progreso-relleno" class="progreso-relleno"></div>
+          </div>
+          <div class="progreso-info">
+            <span>Progreso:</span>
+            <span id="progreso-porcentaje">0%</span>
+          </div>
+
+          <div id="progreso-mensaje" class="mensaje-progreso pendiente">
+            Debes completar los pasos en orden. Paso habilitado: 1 de 4.
+          </div>
+
+          <div id="checklist-preparacion">
+            <label class="paso-item paso-habilitado">
+              <input type="checkbox" class="check-paso" id="paso-vaciar"> Vacía la botella por completo.
+            </label>
+            <label class="paso-item paso-bloqueado">
+              <input type="checkbox" class="check-paso" id="paso-enjuagar" disabled> Enjuágala con un poco de agua si tiene restos de dulce o grasa.
+            </label>
+            <label class="paso-item paso-bloqueado">
+              <input type="checkbox" class="check-paso" id="paso-separar" disabled> Quítale la tapa y la etiqueta.
+            </label>
+            <label class="paso-item paso-bloqueado">
+              <input type="checkbox" class="check-paso" id="paso-compactar" disabled> Aplasta la botella para que ocupe menos espacio.
+            </label>
+          </div>
+
+          <button type="button" id="btn-buscar-acopio" class="btn-accion-checklist" disabled>
+            Buscar punto de acopio cercano
+          </button>
+        </div>
+        <img src="imagenes/botella-pet.webp" alt="Botella de plástico lista para reciclaje">
+      </div>
+    </section>
+
+    <section class="caja" id="seccion-puntos-acopio">
+      <h2>Puntos de acopio cercanos</h2>
+      <p>Encuentra estaciones limpias y lugares autorizados en la ciudad para dejar tus materiales reciclables:</p>
+
+      <div class="barra-filtros-puntos">
+        <div class="filtros-grupo">
+          <label>
+            <input type="checkbox" id="filtro-abierto"> Solo mostrar <strong>"Abierto ahora"</strong>
+          </label>
+          <label>
+            Distancia:
+            <select id="filtro-distancia">
+              <option value="todas">Todas las distancias</option>
+              <option value="1">Menos de 1 km</option>
+              <option value="3">Menos de 3 km</option>
+              <option value="5">Menos de 5 km</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="switch-vistas" role="tablist">
+          <button type="button" id="btn-vista-lista" class="activo" aria-selected="true">Vista Lista</button>
+          <button type="button" id="btn-vista-mapa" aria-selected="false">Vista Mapa</button>
+        </div>
+      </div>
+
+      <div id="sin-puntos-aviso" class="aviso oculto">
+        No hay lugares de reciclaje que coincidan con estos filtros.
+      </div>
+
+      <div id="vista-lista">
+        <article class="caja item-punto" data-punto-id="punto-reducto" data-abierto="true" data-distancia="0.8">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+            <div>
+              <h3>Punto Limpio Parque Reducto N° 2 (Miraflores)</h3>
+              <p><strong>Ubicación:</strong> Calle Ramón Ribeyro cdra. 1, Miraflores · <em>(0.8 km de ti)</em></p>
+              <p><strong>Horario:</strong> Lunes a Sábado de 8:00 am a 4:00 pm</p>
+              <p><strong>Qué reciben:</strong> Botellas de plástico, Cartón, Vidrio, Latas.</p>
+            </div>
+            <span class="badge-estado-punto badge-abierto">Abierto ahora</span>
+          </div>
+          <div class="acciones-punto">
+            <button type="button" class="btn-favorito" data-punto-id="punto-reducto" aria-pressed="false">
+              ☆ Guardar favorito
+            </button>
+            <button type="button" class="btn-configurar-recordatorio" data-nombre-punto="Parque Reducto N° 2">
+              Configurar recordatorio
+            </button>
+          </div>
+        </article>
+
+        <article class="caja item-punto" data-punto-id="punto-olivar" data-abierto="true" data-distancia="2.3">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+            <div>
+              <h3>Estación de Reciclaje Bosque El Olivar (San Isidro)</h3>
+              <p><strong>Ubicación:</strong> Calle Manuel Anzieta s/n, San Isidro · <em>(2.3 km de ti)</em></p>
+              <p><strong>Horario:</strong> Lunes a Viernes de 9:00 am a 5:00 pm</p>
+              <p><strong>Qué reciben:</strong> Plásticos, Vidrio, Pequeños aparatos.</p>
+            </div>
+            <span class="badge-estado-punto badge-abierto">Abierto ahora</span>
+          </div>
+          <div class="acciones-punto">
+            <button type="button" class="btn-favorito" data-punto-id="punto-olivar" aria-pressed="false">
+              ☆ Guardar favorito
+            </button>
+            <button type="button" class="btn-configurar-recordatorio" data-nombre-punto="Bosque El Olivar">
+              Configurar recordatorio
+            </button>
+          </div>
+        </article>
+
+        <article class="caja item-punto" data-punto-id="punto-loma" data-abierto="false" data-distancia="4.5">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+            <div>
+              <h3>Punto de Reciclaje Loma Amarilla (Santiago de Surco)</h3>
+              <p><strong>Ubicación:</strong> Av. Caminos del Inca cdra. 21, Surco · <em>(4.5 km de ti)</em></p>
+              <p><strong>Horario:</strong> Martes a Domingo de 8:30 am a 3:30 pm (Cerrado hoy)</p>
+              <p><strong>Qué reciben:</strong> Papel, Cartón, Plásticos, Latas.</p>
+            </div>
+            <span class="badge-estado-punto badge-cerrado">Cerrado</span>
+          </div>
+          <div class="acciones-punto">
+            <button type="button" class="btn-favorito" data-punto-id="punto-loma" aria-pressed="false">
+              ☆ Guardar favorito
+            </button>
+            <button type="button" class="btn-configurar-recordatorio" data-nombre-punto="Loma Amarilla">
+              Configurar recordatorio
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <div id="vista-mapa" class="vista-mapa-simulada oculto">
+        <h3>Mapa de puntos cercanos</h3>
+        <p>Ubicaciones de los centros de recojo disponibles:</p>
+        <div>
+          <span class="pin-mapa">📍 Parque Reducto N° 2 (0.8 km) - Abierto</span>
+          <span class="pin-mapa">📍 Bosque El Olivar (2.3 km) - Abierto</span>
+          <span class="pin-mapa">📍 Loma Amarilla (4.5 km) - Cerrado</span>
+        </div>
+        <p style="margin-top: 20px; font-size: 13px; color: #555;">Toca "Vista Lista" para guardar favoritos o programar un recordatorio.</p>
+      </div>
+    </section>
+
+    <section class="caja" id="panel-reciclador">
+      <h2>Panel del encargado de reciclaje</h2>
+      <p>Espacio para actualizar el horario y los tipos de materiales que recibe tu punto:</p>
+
+      <form id="form-admin-reciclador">
+        <p><strong>Configurar horario de atención:</strong></p>
+        <div class="horario-selectores" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px;">
+          <div>
+            <label for="admin-dias" style="display: block; font-size: 13px; margin-bottom: 4px;">Días:</label>
+            <select id="admin-dias" style="padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 14px;">
+              <option value="Lunes a Sábado">Lunes a Sábado</option>
+              <option value="Lunes a Viernes">Lunes a Viernes</option>
+              <option value="Fines de semana">Sábados y Domingos</option>
+              <option value="Todos los días">Todos los días</option>
+            </select>
+          </div>
+          <div>
+            <label for="admin-hora-apertura" style="display: block; font-size: 13px; margin-bottom: 4px;">Apertura:</label>
+            <input type="time" id="admin-hora-apertura" value="08:00" style="padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 14px;">
+          </div>
+          <span style="margin-top: 18px; color: var(--color-text-muted);">hasta</span>
+          <div>
+            <label for="admin-hora-cierre" style="display: block; font-size: 13px; margin-bottom: 4px;">Cierre:</label>
+            <input type="time" id="admin-hora-cierre" value="16:00" style="padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 14px;">
+          </div>
+        </div>
+
+        <div style="margin: 16px 0;">
+          <p><strong>Materiales que recibes hoy (toca para activar o desactivar):</strong></p>
+          <div class="contenedor-chips" id="contenedor-chips-admin">
+            <button type="button" class="chip-material-admin seleccionado" data-material="plastico">Botellas de plástico</button>
+            <button type="button" class="chip-material-admin seleccionado" data-material="carton">Cartón y Papel</button>
+            <button type="button" class="chip-material-admin seleccionado" data-material="vidrio">Vidrio</button>
+            <button type="button" class="chip-material-admin" data-material="metales">Latas</button>
+            <button type="button" class="chip-material-admin" data-material="especiales">Pilas y especiales</button>
+          </div>
+          <div id="error-materiales-admin" class="mensaje-error oculto" role="alert">
+            Debes seleccionar al menos un tipo de material antes de guardar.
+          </div>
+        </div>
+
+        <div class="caja" style="background: #fdfdfd; border-style: dashed;">
+          <h4 style="margin: 0 0 6px 0;">Vista previa para los vecinos:</h4>
+          <p>Horario: <strong id="vista-horario-actual">Lunes a Sábado: 8:00 am - 4:00 pm</strong></p>
+          <p>Estado de los datos: <span id="badge-estado-publicacion" class="badge-estado estado-pendiente">Pendiente de guardar</span></p>
+        </div>
+
+        <button type="submit" id="btn-publicar-criterios">Publicar cambios</button>
+      </form>
+    </section>
+
+  </main>
+
+  <div id="modal-recordatorio" class="modal-fondo oculto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-caja">
+      <h3 id="modal-titulo">Recordatorio para llevar tu reciclaje</h3>
+      <p>Lugar elegido: <strong id="modal-nombre-punto">Punto de acopio</strong></p>
+
+      <form id="form-recordatorio">
+        <label for="recordatorio-fecha">Día que piensas ir:</label>
+        <input type="date" id="recordatorio-fecha" required style="width: 100%; padding: 8px; margin-bottom: 12px;">
+
+        <label for="recordatorio-hora">Hora estimada:</label>
+        <input type="time" id="recordatorio-hora" required style="width: 100%; padding: 8px; margin-bottom: 12px;">
+
+        <div id="error-recordatorio" class="mensaje-error oculto" role="alert"></div>
+
+        <div class="modal-botones">
+          <button type="button" id="btn-cerrar-modal">Cancelar</button>
+          <button type="submit" style="background: #1e6b45; color: white;">Crear recordatorio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="feedback-recordatorio-global" class="alerta-toast oculto" role="status">
+    Entrega programada con éxito
+  </div>
+
+  <div id="alerta-publicacion-admin" class="alerta-toast oculto" style="bottom: 80px;" role="status">
+    Criterios y horarios publicados exitosamente.
+  </div>
+
+  <footer>
+    <div class="contenedor">
+      <p>RecycleNow · Proyecto académico de reciclaje ciudadano</p>
+    </div>
+  </footer>
+</body>
+
+</html>

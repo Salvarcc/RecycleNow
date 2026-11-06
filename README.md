@@ -2,26 +2,71 @@
 
 Plataforma cívica web de reciclaje ciudadano alineada con el **ODS 12 (Producción y consumo responsables)** y el **ODS 13 (Acción por el clima)**.
 
-Desarrollada para el curso de **HCI for UX Design** utilizando **JavaScript puro (Vanilla JS)**, sin dependencias ni frameworks externos, con un diseño modular adaptable para 6 integrantes y 3 Historias de Usuario principales.
+Desarrollada para el curso de **HCI for UX Design** (UPC), estructurada como un **Portal de Entregas Progresivas** que evidencia la evolución técnica desde el prototipo HTML semántico hasta la interactividad en JavaScript puro sin dependencias externas.
 
-## 🚀 Funcionalidades Principales
+---
 
-* **Buscador y Chips Rápidos:** Búsqueda reactiva instantánea que intercepta el envío sin recargar la página (`e.preventDefault()`).
-* **Catálogo de Residuos:** Filtros dinámicos por tipo de material (Plásticos, Papel y Cartón, Vidrio, Metales y Residuos especiales).
-* **Protocolo de Acondicionamiento en Cascada:** Checklist interactivo donde cada paso requiere haber completado el anterior, con cálculo del progreso en tiempo real (0% al 100%).
-* **Centros de Acopio:** Conmutación entre **Vista Lista** y **Vista Mapa**, con filtros por "Abierto ahora" y radio de distancia.
-* **Organización Doméstica:** Guardado persistente de puntos favoritos en `localStorage` y modal para agendar recordatorios de entrega con validación.
-* **Panel del Reciclador:** Administración con controles nativos de horario (`<input type="time">`) y selección conmutable de materiales con validación de publicación.
+## 🌐 Portal de Entregas en Vivo (GitHub Pages)
 
-## 📁 Estructura del Proyecto
+El archivo raíz [`index.html`](index.html) funciona como un **Dashboard Interactivo** donde puedes probar cada avance semanal mediante pestañas y enlaces directos:
+
+1. **[Semana 09: Fundamentos de HTML5](semana-09-html/index.html)**: Estructura semántica pura (`<header>`, `<nav>`, `<main>`, `<article>`, `<form>`), jerarquía de contenidos y formularios cívicos sin estilos CSS ni scripts.
+2. **[Semana 10: CSS3 & Responsive Design](semana-10-css/index.html)**: Maquetación con Flexbox, CSS Grid, Design System con variables (`:root`), paleta ecológica y adaptabilidad multidispositivo sin JavaScript.
+3. **[Semana 11: Vanilla JS (Proyecto Completo)](semana-11-js/index.html)**: Implementación de las 3 Historias de Usuario (HU1, HU2 y HU3) modularizadas para los 6 integrantes del equipo:
+   * **HU1:** Buscador en vivo con `e.preventDefault()`, chips rápidos, filtros por categoría y checklist en cascada con cálculo de progreso al 100%.
+   * **HU3:** Conmutador Vista Lista / Vista Mapa, filtros por distancia y disponibilidad, persistencia de favoritos con `localStorage` y modal de recordatorio.
+   * **HU2:** Formulario administrativo del reciclador con selectores de hora (`<input type="time">`), conversión 12h am/pm y validación de publicación.
+
+---
+
+## 📁 Estructura del Repositorio
 
 ```text
-├── index.html       # Landing page única integrada
-├── styles.css       # Hoja de estilos (Design System en CSS3)
-├── script.js        # Lógica interactiva en Vanilla JS
-├── imagenes/        # Recursos multimedia del proyecto
-└── Auditoria_Historias_de_Usuario_RecycleNow.docx # Documentación de requerimientos y HU
+RecycleNow/
+│
+├── index.html                 # PORTAL PRINCIPAL (Dashboard / Hub de Semanas)
+├── portal.css                 # Estilos del portal de presentación
+│
+├── semana-09-html/            # HITO SEMANA 9: Solo HTML5 Semántico
+│   ├── index.html
+│   └── imagenes/
+│
+├── semana-10-css/             # HITO SEMANA 10: HTML5 + CSS3 Responsive
+│   ├── index.html
+│   ├── styles.css
+│   └── imagenes/
+│
+├── semana-11-js/              # HITO SEMANA 11: Proyecto Completo en Vanilla JS
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   └── imagenes/
+│
+├── docs/                      # DOCUMENTACIÓN FORMAL
+│   ├── Auditoria_Historias_de_Usuario_RecycleNow.docx
+│   └── Presentacion_RecycleNow_HUs.pptx
+│
+└── README.md
 ```
 
-## 💻 Ejecución
-Simplemente abre `index.html` en cualquier navegador web moderno.
+---
+
+## 👥 Equipo y Distribución de Responsabilidades (Semana 11)
+
+* **Integrante 1:** CA01 - Buscador reactivo y chips rápidos con `e.preventDefault()`.
+* **Integrante 2:** CA02 - Filtro dinámico por categorías de material en el catálogo.
+* **Integrante 3:** CA03 - Checklist con validación en cascada estricta y cálculo de progreso.
+* **Integrante 4:** CA04 - Filtros de puntos de acopio y switch Vista Lista / Vista Mapa.
+* **Integrante 5:** CA05 - Guardado en `localStorage` y modal de recordatorio de entrega.
+* **Integrante 6:** CA06 - Panel del reciclador con time-pickers y validación de publicación.
+
+---
+
+## 🚀 Cómo Ejecutar Localmente
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Salvarcc/RecycleNow.git
+   ```
+2. Abre `index.html` en tu navegador web favorito (Chrome, Edge, Firefox).
+3. Utiliza el **Visor Comparativo** o haz clic en los botones de cada semana para navegar entre los diferentes hitos del proyecto.

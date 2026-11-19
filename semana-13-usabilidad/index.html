@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semana 13: Validación de Usabilidad y SUS | RecycleNow</title>
+  <link rel="stylesheet" href="../portal.css">
+  <style>
+    .s13-bloque {
+      background: #ffffff;
+      border: 1px solid #d4e2d8;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(18, 54, 34, 0.05);
+    }
+
+    .s13-bloque h2 {
+      margin-top: 0;
+      color: #154c31;
+      font-size: 21px;
+    }
+
+    .s13-tarea {
+      background: #f4f8f5;
+      border-left: 4px solid #2e8b57;
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .s13-tarea strong {
+      color: #154c31;
+    }
+
+    .s13-forms-box {
+      background: #fbfdfc;
+      border: 1px dashed #2e8b57;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 14.5px;
+    }
+
+    .s13-tabla-wrap {
+      overflow-x: auto;
+    }
+
+    .s13-tabla {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 600px;
+    }
+
+    .s13-tabla th,
+    .s13-tabla td {
+      border: 1px solid #d4e2d8;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .s13-tabla th {
+      background: #154c31;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .s13-tabla tr:nth-child(even) td {
+      background: #f7faf8;
+    }
+
+    .s13-acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="portal-hero">
+    <div class="portal-contenedor">
+      <span class="portal-tag">Semana 13 · Validación con usuarios</span>
+      <h1>Pruebas de Usabilidad y Cuestionario SUS</h1>
+      <p>Protocolo de campo, tareas representativas y registro de evidencias para evaluar la versión interactiva de RecycleNow.</p>
+      <div class="s13-acciones" style="justify-content: center;">
+        <a href="../index.html" class="btn-doc">Volver al portal</a>
+        <a href="../semana-11-js/index.html" class="btn-doc" style="background: #2e8b57;" target="_blank" rel="noopener">Abrir prototipo a probar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-contenedor">
+
+      <section class="s13-bloque">
+        <h2>1. Tareas representativas para las pruebas</h2>
+        <p>Indica estas tareas al participante sin explicarle cómo usar la página ni guiar sus clics:</p>
+
+        <div class="s13-tarea">
+          <strong>Tarea 1 (Clasificación y preparación):</strong>
+          <p style="margin: 6px 0 0 0;">"Imagina que tienes una botella de gaseosa vacía en casa. Busca cómo debes reciclarla en la web y completa los pasos necesarios hasta habilitar la búsqueda de puntos de acopio."</p>
+        </div>
+
+        <div class="s13-tarea">
+          <strong>Tarea 2 (Búsqueda de punto y recordatorio):</strong>
+          <p style="margin: 6px 0 0 0;">"Necesitas llevar tus envases hoy. Filtra los lugares que estén abiertos ahora, guarda el punto 'Parque Reducto N° 2' como favorito y programa un recordatorio de entrega."</p>
+        </div>
+
+        <div class="s13-tarea">
+          <strong>Tarea 3 (Gestión de criterios del encargado):</strong>
+          <p style="margin: 6px 0 0 0;">"Ahora ponte en el lugar del encargado de un punto limpio. Cambia el horario de cierre a las 5:00 pm, agrega 'Latas' como material aceptado y publica los cambios."</p>
+        </div>
+      </section>
+
+      <section class="s13-bloque">
+        <h2>2. Protocolo breve con cada participante</h2>
+        <ul>
+          <li>Confirmar que pertenece al público objetivo (ciudadano/estudiante o responsable de hogar que recicla o quiere empezar a hacerlo).</li>
+          <li>Solicitar consentimiento expreso antes de grabar la pantalla o interacción, aclarando que es solo para fines académicos y que no se publicarán datos personales en enlaces abiertos.</li>
+          <li>Compartir el enlace de GitHub Pages desde celular o computadora y pedirle que realice las 3 tareas de forma autónoma.</li>
+          <li>Registrar dudas, errores, si completó cada tarea y el tiempo aproximado.</li>
+          <li>Al terminar, enviar el enlace de la copia independiente de Microsoft Forms (SUS).</li>
+        </ul>
+      </section>
+
+      <section class="s13-bloque">
+        <h2>3. Texto sugerido para tu copia de Microsoft Forms (SUS)</h2>
+        <p>Recuerda duplicar la plantilla del docente sin alterar las 10 afirmaciones ni la escala de 1 a 5:</p>
+        <div class="s13-forms-box">
+          <p><strong>Título:</strong> Evaluación de Usabilidad (SUS) - RecycleNow</p>
+          <p style="margin-bottom: 0;"><strong>Descripción:</strong> RecycleNow es una guía web que ayuda a identificar residuos reciclables, prepararlos paso a paso, ubicar puntos de acopio cercanos y organizar recordatorios de entrega. Por favor responde según tu experiencia usando la página. No hay respuestas buenas ni malas.</p>
+        </div>
+      </section>
+
+      <section class="s13-bloque">
+        <h2>4. Plantilla de observación y resultados</h2>
+        <p>Usa esta guía durante las pruebas para luego pasar los puntajes a la plantilla Excel y preparar la presentación de resultados:</p>
+
+        <div class="s13-tabla-wrap">
+          <table class="s13-tabla">
+            <thead>
+              <tr>
+                <th>Participante (ID / Iniciales)</th>
+                <th>Dispositivo</th>
+                <th>Tarea 1</th>
+                <th>Tarea 2</th>
+                <th>Tarea 3</th>
+                <th>Dudas o problemas observados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>P01</td>
+                <td>Móvil / PC</td>
+                <td>Completada / Con ayuda / No</td>
+                <td>Completada / Con ayuda / No</td>
+                <td>Completada / Con ayuda / No</td>
+                <td>Anotar aquí qué le costó entender o dónde se detuvo.</td>
+              </tr>
+              <tr>
+                <td>P02</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="s13-acciones">
+          <a href="plantilla_sus_resultados_graficos.xlsx" class="btn-doc" download>Descargar plantilla SUS (.xlsx)</a>
+          <a href="U4-S13_Usability Testing and Heuristic Evaluation.pdf" class="btn-doc" style="background: #2e8b57;" target="_blank" rel="noopener">Ver indicaciones del curso (.pdf)</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    <div class="portal-contenedor">
+      <p>RecycleNow · HCI for UX Design · Semana 13</p>
+    </div>
+  </footer>
+</body>
+
+</html>

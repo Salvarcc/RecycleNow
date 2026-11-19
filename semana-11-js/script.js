@@ -7,10 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarPanelReciclador();
 });
 
+function actualizarContadorResiduos(visibles, total) {
+  const contador = document.getElementById('contador-resultados');
+  if (contador) {
+    contador.textContent = `Mostrando ${visibles} de ${total} materiales`;
+  }
+}
+
 function iniciarBuscadorYChips() {
   const formBusqueda = document.getElementById('form-busqueda');
   const inputBusqueda = document.getElementById('input-busqueda');
+  const btnLimpiar = document.getElementById('btn-limpiar-busqueda');
   const chipsRapidos = document.querySelectorAll('.chip-busqueda');
+  const botonesCategoria = document.querySelectorAll('.btn-categoria');
   const tarjetasResiduo = document.querySelectorAll('.tarjeta-residuo');
   const avisoSinCoincidencias = document.getElementById('sin-coincidencias');
 
@@ -19,6 +28,16 @@ function iniciarBuscadorYChips() {
   function filtrarPorTermino(termino) {
     const query = termino.toLowerCase().trim();
     let coincidencias = 0;
+
+    if (btnLimpiar) {
+      btnLimpiar.classList.toggle('oculto', query === '');
+    }
+
+    if (query !== '' && botonesCategoria.length > 0) {
+      botonesCategoria.forEach(btn => {
+        btn.classList.toggle('activo', btn.getAttribute('data-categoria') === 'todos');
+      });
+    }
 
     tarjetasResiduo.forEach(tarjeta => {
       const nombre = (tarjeta.getAttribute('data-nombre') || tarjeta.textContent).toLowerCase();
@@ -31,10 +50,10 @@ function iniciarBuscadorYChips() {
       }
     });
 
-    if (coincidencias === 0 && query !== '') {
-      if (avisoSinCoincidencias) avisoSinCoincidencias.classList.remove('oculto');
-    } else {
-      if (avisoSinCoincidencias) avisoSinCoincidencias.classList.add('oculto');
+    actualizarContadorResiduos(coincidencias, tarjetasResiduo.length);
+
+    if (avisoSinCoincidencias) {
+      avisoSinCoincidencias.classList.toggle('oculto', !(coincidencias === 0 && query !== ''));
     }
   }
 
@@ -46,6 +65,14 @@ function iniciarBuscadorYChips() {
   inputBusqueda.addEventListener('input', () => {
     filtrarPorTermino(inputBusqueda.value);
   });
+
+  if (btnLimpiar) {
+    btnLimpiar.addEventListener('click', () => {
+      inputBusqueda.value = '';
+      filtrarPorTermino('');
+      inputBusqueda.focus();
+    });
+  }
 
   chipsRapidos.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -60,6 +87,7 @@ function iniciarFiltroCategorias() {
   const botonesCategoria = document.querySelectorAll('.btn-categoria');
   const tarjetasResiduo = document.querySelectorAll('.tarjeta-residuo');
   const inputBusqueda = document.getElementById('input-busqueda');
+  const btnLimpiar = document.getElementById('btn-limpiar-busqueda');
   const avisoSinCoincidencias = document.getElementById('sin-coincidencias');
 
   if (botonesCategoria.length === 0) return;
@@ -72,6 +100,7 @@ function iniciarFiltroCategorias() {
       const categoriaSeleccionada = boton.getAttribute('data-categoria');
 
       if (inputBusqueda) inputBusqueda.value = '';
+      if (btnLimpiar) btnLimpiar.classList.add('oculto');
       if (avisoSinCoincidencias) avisoSinCoincidencias.classList.add('oculto');
 
       let visibles = 0;
@@ -86,12 +115,10 @@ function iniciarFiltroCategorias() {
         }
       });
 
+      actualizarContadorResiduos(visibles, tarjetasResiduo.length);
+
       if (avisoSinCoincidencias) {
-        if (visibles === 0) {
-          avisoSinCoincidencias.classList.remove('oculto');
-        } else {
-          avisoSinCoincidencias.classList.add('oculto');
-        }
+        avisoSinCoincidencias.classList.toggle('oculto', visibles > 0);
       }
     });
   });
@@ -99,6 +126,7 @@ function iniciarFiltroCategorias() {
 
 function iniciarChecklistPreparacion() {
   const checkboxes = document.querySelectorAll('.check-paso');
+  const barraProgreso = document.querySelector('.barra-progreso');
   const barraProgresoFill = document.getElementById('progreso-relleno');
   const textoPorcentaje = document.getElementById('progreso-porcentaje');
   const mensajeProgreso = document.getElementById('progreso-mensaje');
@@ -123,20 +151,13 @@ function iniciarChecklistPreparacion() {
       }
 
       if (itemPaso) {
-        if (cb.disabled) {
-          itemPaso.classList.add('paso-bloqueado');
-          itemPaso.classList.remove('paso-habilitado');
-        } else {
-          itemPaso.classList.remove('paso-bloqueado');
-          itemPaso.classList.add('paso-habilitado');
-        }
+        itemPaso.classList.toggle('paso-bloqueado', cb.disabled);
+        itemPaso.classList.toggle('paso-habilitado', !cb.disabled);
+        itemPaso.classList.toggle('paso-completado', cb.checked);
       }
 
       if (cb.checked) {
         completados++;
-        if (itemPaso) itemPaso.classList.add('paso-completado');
-      } else {
-        if (itemPaso) itemPaso.classList.remove('paso-completado');
       }
     });
 
@@ -144,20 +165,21 @@ function iniciarChecklistPreparacion() {
     const porcentaje = Math.round((completados / total) * 100);
 
     barraProgresoFill.style.width = `${porcentaje}%`;
+    if (barraProgreso) barraProgreso.setAttribute('aria-valuenow', String(porcentaje));
     textoPorcentaje.textContent = `${porcentaje}%`;
 
     if (porcentaje === 100) {
       btnBuscarAcopio.disabled = false;
       btnBuscarAcopio.classList.add('btn-habilitado');
       if (mensajeProgreso) {
-        mensajeProgreso.textContent = '¡Excelente! Los 4 pasos están completos en orden. Tu botella está lista.';
+        mensajeProgreso.textContent = 'Listo. Completaste los 4 pasos y tu botella está preparada para entregar.';
         mensajeProgreso.className = 'mensaje-progreso exito';
       }
     } else {
       btnBuscarAcopio.disabled = true;
       btnBuscarAcopio.classList.remove('btn-habilitado');
       if (mensajeProgreso) {
-        mensajeProgreso.textContent = `Debes completar los pasos en orden. Paso actual habilitado: ${completados + 1} de ${total}.`;
+        mensajeProgreso.textContent = `Paso actual: marca el paso ${completados + 1} de ${total} para continuar.`;
         mensajeProgreso.className = 'mensaje-progreso pendiente';
       }
     }
@@ -181,8 +203,6 @@ function iniciarChecklistPreparacion() {
     const seccionPuntos = document.getElementById('seccion-puntos-acopio');
     if (seccionPuntos) {
       seccionPuntos.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = 'index.html#seccion-puntos-acopio';
     }
   });
 }
@@ -195,20 +215,26 @@ function iniciarFiltrosYVistasPuntos() {
   const filtroAbierto = document.getElementById('filtro-abierto');
   const filtroDistancia = document.getElementById('filtro-distancia');
   const puntosAcopio = document.querySelectorAll('.item-punto');
+  const pinesMapa = document.querySelectorAll('.pin-mapa');
+  const detalleMapa = document.getElementById('mapa-detalle-punto');
   const avisoSinPuntos = document.getElementById('sin-puntos-aviso');
 
   if (!btnVistaLista || !btnVistaMapa || !contenedorLista || !contenedorMapa) return;
 
   btnVistaLista.addEventListener('click', () => {
     btnVistaLista.classList.add('activo');
+    btnVistaLista.setAttribute('aria-selected', 'true');
     btnVistaMapa.classList.remove('activo');
+    btnVistaMapa.setAttribute('aria-selected', 'false');
     contenedorLista.classList.remove('oculto');
     contenedorMapa.classList.add('oculto');
   });
 
   btnVistaMapa.addEventListener('click', () => {
     btnVistaMapa.classList.add('activo');
+    btnVistaMapa.setAttribute('aria-selected', 'true');
     btnVistaLista.classList.remove('activo');
+    btnVistaLista.setAttribute('aria-selected', 'false');
     contenedorMapa.classList.remove('oculto');
     contenedorLista.classList.add('oculto');
   });
@@ -224,26 +250,39 @@ function iniciarFiltrosYVistasPuntos() {
     puntosAcopio.forEach(punto => {
       const estaAbierto = punto.getAttribute('data-abierto') === 'true';
       const distancia = parseFloat(punto.getAttribute('data-distancia') || '0');
+      const cumple = (!soloAbiertos || estaAbierto) && distancia <= distanciaMax;
 
-      const cumpleAbierto = !soloAbiertos || estaAbierto;
-      const cumpleDistancia = distancia <= distanciaMax;
+      punto.classList.toggle('oculto', !cumple);
+      if (cumple) visibles++;
+    });
 
-      if (cumpleAbierto && cumpleDistancia) {
-        punto.classList.remove('oculto');
-        visibles++;
-      } else {
-        punto.classList.add('oculto');
+    pinesMapa.forEach(pin => {
+      const estaAbierto = pin.getAttribute('data-abierto') === 'true';
+      const distancia = parseFloat(pin.getAttribute('data-distancia') || '0');
+      const cumple = (!soloAbiertos || estaAbierto) && distancia <= distanciaMax;
+
+      pin.classList.toggle('oculto', !cumple);
+      if (!cumple && pin.classList.contains('pin-activo')) {
+        pin.classList.remove('pin-activo');
+        if (detalleMapa) detalleMapa.classList.add('oculto');
       }
     });
 
     if (avisoSinPuntos) {
-      if (visibles === 0) {
-        avisoSinPuntos.classList.remove('oculto');
-      } else {
-        avisoSinPuntos.classList.add('oculto');
-      }
+      avisoSinPuntos.classList.toggle('oculto', visibles > 0);
     }
   }
+
+  pinesMapa.forEach(pin => {
+    pin.addEventListener('click', () => {
+      pinesMapa.forEach(p => p.classList.remove('pin-activo'));
+      pin.classList.add('pin-activo');
+      if (detalleMapa) {
+        detalleMapa.textContent = pin.getAttribute('data-detalle') || pin.textContent;
+        detalleMapa.classList.remove('oculto');
+      }
+    });
+  });
 
   if (filtroAbierto) filtroAbierto.addEventListener('change', aplicarFiltrosPuntos);
   if (filtroDistancia) filtroDistancia.addEventListener('change', aplicarFiltrosPuntos);
@@ -263,6 +302,11 @@ function iniciarFavoritosYRecordatorio() {
 
   const CLAVE_FAVORITOS = 'recyclenow_puntos_favoritos';
 
+  if (inputFecha) {
+    const hoy = new Date().toISOString().split('T')[0];
+    inputFecha.setAttribute('min', hoy);
+  }
+
   function obtenerFavoritos() {
     try {
       return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS)) || [];
@@ -276,15 +320,9 @@ function iniciarFavoritosYRecordatorio() {
   }
 
   function actualizarEstadoVisualBoton(btn, esFavorito) {
-    if (esFavorito) {
-      btn.classList.add('guardado');
-      btn.innerHTML = '★ Guardado como favorito';
-      btn.setAttribute('aria-pressed', 'true');
-    } else {
-      btn.classList.remove('guardado');
-      btn.innerHTML = '☆ Guardar favorito';
-      btn.setAttribute('aria-pressed', 'false');
-    }
+    btn.classList.toggle('guardado', esFavorito);
+    btn.textContent = esFavorito ? '★ Guardado como favorito' : '☆ Guardar favorito';
+    btn.setAttribute('aria-pressed', esFavorito ? 'true' : 'false');
   }
 
   const favoritosGuardados = obtenerFavoritos();
@@ -310,25 +348,32 @@ function iniciarFavoritosYRecordatorio() {
   });
 
   if (botonesAbrirModal.length > 0 && modalRecordatorio) {
-    botonesAbrirModal.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const nombre = btn.getAttribute('data-nombre-punto') || 'Punto de acopio';
-        if (spanNombrePunto) spanNombrePunto.textContent = nombre;
-        if (errorRecordatorio) errorRecordatorio.classList.add('oculto');
-        modalRecordatorio.classList.remove('oculto');
-      });
-    });
-
     function cerrarModal() {
       modalRecordatorio.classList.add('oculto');
       if (formRecordatorio) formRecordatorio.reset();
       if (errorRecordatorio) errorRecordatorio.classList.add('oculto');
     }
 
+    botonesAbrirModal.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const nombre = btn.getAttribute('data-nombre-punto') || 'Punto de acopio';
+        if (spanNombrePunto) spanNombrePunto.textContent = nombre;
+        if (errorRecordatorio) errorRecordatorio.classList.add('oculto');
+        modalRecordatorio.classList.remove('oculto');
+        if (inputFecha) inputFecha.focus();
+      });
+    });
+
     if (btnCerrarModal) btnCerrarModal.addEventListener('click', cerrarModal);
 
     modalRecordatorio.addEventListener('click', (e) => {
       if (e.target === modalRecordatorio) cerrarModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modalRecordatorio.classList.contains('oculto')) {
+        cerrarModal();
+      }
     });
 
     if (formRecordatorio) {
@@ -339,7 +384,7 @@ function iniciarFavoritosYRecordatorio() {
 
         if (!fecha || !hora) {
           if (errorRecordatorio) {
-            errorRecordatorio.textContent = 'Por favor selecciona tanto la fecha como la hora de tu entrega.';
+            errorRecordatorio.textContent = 'Por favor selecciona la fecha y la hora para guardar tu recordatorio.';
             errorRecordatorio.classList.remove('oculto');
           }
           return;
@@ -350,10 +395,8 @@ function iniciarFavoritosYRecordatorio() {
         if (feedbackGlobal) {
           feedbackGlobal.textContent = 'Entrega programada con éxito';
           feedbackGlobal.classList.remove('oculto');
-          feedbackGlobal.classList.add('alerta-activa');
 
           setTimeout(() => {
-            feedbackGlobal.classList.remove('alerta-activa');
             feedbackGlobal.classList.add('oculto');
           }, 4000);
         }
@@ -369,12 +412,21 @@ function iniciarPanelReciclador() {
   const inputApertura = document.getElementById('admin-hora-apertura');
   const inputCierre = document.getElementById('admin-hora-cierre');
   const vistaHorario = document.getElementById('vista-horario-actual');
+  const vistaMateriales = document.getElementById('vista-materiales-actual');
   const badgeEstado = document.getElementById('badge-estado-publicacion');
+  const errorHorario = document.getElementById('error-horario-admin');
   const errorMateriales = document.getElementById('error-materiales-admin');
   const contenedorChips = document.getElementById('contenedor-chips-admin');
   const alertaConfirmacion = document.getElementById('alerta-publicacion-admin');
 
   if (!formAdmin) return;
+
+  function actualizarVistaMateriales() {
+    if (!vistaMateriales) return;
+    const activos = Array.from(document.querySelectorAll('.chip-material-admin.seleccionado'))
+      .map(chip => chip.getAttribute('data-material') || chip.textContent.trim());
+    vistaMateriales.textContent = activos.length > 0 ? activos.join(', ') : 'Ninguno seleccionado';
+  }
 
   chipsMateriales.forEach(chip => {
     chip.addEventListener('click', (e) => {
@@ -383,6 +435,7 @@ function iniciarPanelReciclador() {
 
       if (contenedorChips) contenedorChips.classList.remove('campo-error');
       if (errorMateriales) errorMateriales.classList.add('oculto');
+      actualizarVistaMateriales();
     });
   });
 
@@ -396,6 +449,7 @@ function iniciarPanelReciclador() {
   }
 
   function actualizarVistaHorario() {
+    if (errorHorario) errorHorario.classList.add('oculto');
     if (!vistaHorario) return;
     const dias = selectDias ? selectDias.value : 'Lunes a Sábado';
     const apertura = inputApertura && inputApertura.value ? formatearHora(inputApertura.value) : '8:00 am';
@@ -407,15 +461,24 @@ function iniciarPanelReciclador() {
   if (inputApertura) inputApertura.addEventListener('change', actualizarVistaHorario);
   if (inputCierre) inputCierre.addEventListener('change', actualizarVistaHorario);
 
+  actualizarVistaMateriales();
+
   formAdmin.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const seleccionados = document.querySelectorAll('.chip-material-admin.seleccionado');
+    const aperturaVal = inputApertura ? inputApertura.value : '';
+    const cierreVal = inputCierre ? inputCierre.value : '';
+
+    if (aperturaVal && cierreVal && cierreVal <= aperturaVal) {
+      if (errorHorario) errorHorario.classList.remove('oculto');
+      return;
+    }
 
     if (seleccionados.length === 0) {
       if (contenedorChips) contenedorChips.classList.add('campo-error');
       if (errorMateriales) {
-        errorMateriales.textContent = 'Error: Debes seleccionar al menos una categoría de material antes de publicar.';
+        errorMateriales.textContent = 'Debes seleccionar al menos una categoría de material antes de publicar.';
         errorMateriales.classList.remove('oculto');
       }
       return;
@@ -423,6 +486,7 @@ function iniciarPanelReciclador() {
 
     if (contenedorChips) contenedorChips.classList.remove('campo-error');
     if (errorMateriales) errorMateriales.classList.add('oculto');
+    if (errorHorario) errorHorario.classList.add('oculto');
 
     if (badgeEstado) {
       badgeEstado.textContent = 'Criterios publicados y visibles';
@@ -432,10 +496,8 @@ function iniciarPanelReciclador() {
     if (alertaConfirmacion) {
       alertaConfirmacion.textContent = 'Criterios y horarios publicados exitosamente.';
       alertaConfirmacion.classList.remove('oculto');
-      alertaConfirmacion.classList.add('alerta-activa');
 
       setTimeout(() => {
-        alertaConfirmacion.classList.remove('alerta-activa');
         alertaConfirmacion.classList.add('oculto');
       }, 3500);
     }

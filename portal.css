@@ -97,9 +97,9 @@ body {
 
 .portal-grid-semanas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 44px;
 }
 
 .tarjeta-semana {
@@ -143,6 +143,10 @@ body {
   background: var(--portal-accent);
 }
 
+.tarjeta-semana.semana-13::before {
+  background: #d97706;
+}
+
 .semana-header {
   display: flex;
   align-items: center;
@@ -171,6 +175,11 @@ body {
 .badge-s11 {
   background: #d4edd9;
   color: #12572b;
+}
+
+.badge-s13 {
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .tarjeta-semana h3 {
@@ -246,6 +255,7 @@ body {
 
 .visor-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

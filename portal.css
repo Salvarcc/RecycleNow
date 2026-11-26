@@ -147,6 +147,10 @@ body {
   background: #d97706;
 }
 
+.tarjeta-semana.semana-14::before {
+  background: #0f766e;
+}
+
 .semana-header {
   display: flex;
   align-items: center;
@@ -180,6 +184,11 @@ body {
 .badge-s13 {
   background: #fef3c7;
   color: #92400e;
+}
+
+.badge-s14 {
+  background: #ccfbf1;
+  color: #115e59;
 }
 
 .tarjeta-semana h3 {

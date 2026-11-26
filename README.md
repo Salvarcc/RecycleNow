@@ -8,8 +8,9 @@ El repositorio está organizado por entregas semanales y puede visualizarse desd
 
 - `semana-09-html/` — Maquetación base en HTML5 semántico (sin estilos ni scripts).
 - `semana-10-css/` — Diseño visual y adaptable (CSS3 con Flexbox y Grid, sin JavaScript).
-- `semana-11-js/` — Versión interactiva completa en JavaScript puro (búsqueda, filtros, checklist en cascada, favoritos en `localStorage`, modal de recordatorio y panel de gestión).
+- `semana-11-js/` — Prototipo multi-página en JavaScript puro (búsqueda, filtros, checklist en cascada, favoritos en `localStorage`, recordatorios y panel de encargados).
 - `semana-13-usabilidad/` — Protocolo de pruebas de usabilidad, tareas representativas, indicaciones del curso y plantilla Excel SUS.
+- `semana-14-ia/` — Mejoras tras evaluación SUS aplicando Human-AI Interaction e interfaces emergentes (búsqueda por voz, identificador por foto, checklist manos libres/gestos, recomendaciones personalizadas, asistente conversacional y asistente para encargados).
 
 ## Otros archivos
 

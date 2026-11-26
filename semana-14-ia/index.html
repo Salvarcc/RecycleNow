@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecycleNow — Reciclaje ciudadano y puntos de acopio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="contenedor header-contenido">
+      <a href="index.html" class="marca" aria-label="RecycleNow inicio">
+        <span class="marca-icono" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+            <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+            <path d="m14 16-3 3 3 3"/>
+            <path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+            <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+            <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+          </svg>
+        </span>
+        <span>RecycleNow</span>
+      </a>
+
+      <button type="button" id="btn-menu-movil" class="btn-menu-movil" aria-expanded="false" aria-controls="nav-principal" aria-label="Abrir menú de navegación">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <nav id="nav-principal" class="nav-principal" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link activo" aria-current="page">Inicio</a>
+        <a href="residuos.html" class="nav-link">Qué reciclar</a>
+        <a href="preparacion.html" class="nav-link">Preparación</a>
+        <a href="puntos.html" class="nav-link">Puntos de acopio</a>
+        <a href="encargado.html" class="nav-link nav-link-rol">Soy encargado</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <!-- HERO EDITORIAL CON BUSCADOR DIRECTO -->
+    <section class="banda banda-crema banda-hero">
+      <div class="contenedor hero-grid">
+        <div class="hero-texto">
+          <p class="hero-contexto">Lima Metropolitana · Separación y acopio ciudadano</p>
+          <h1>Recicla sin dudas cerca de tu casa.</h1>
+          <p class="hero-sub">
+            Consulta qué materiales reciben en tu distrito, prepáralos paso a paso y ubica un punto de acopio abierto hoy.
+          </p>
+
+          <form id="form-hero-busqueda" class="hero-buscador" action="residuos.html" method="get" role="search">
+            <div class="input-con-icono">
+              <svg class="icono-lupa" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+              </svg>
+              <input type="text" id="hero-input-busqueda" name="q" placeholder="¿Qué quieres reciclar? Ej. botella, cartón, aceite..." aria-label="Buscar residuo para reciclar">
+              <button type="button" id="btn-hero-voz" class="btn-voz-inline" aria-label="Buscar por voz" title="Buscar por voz">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+              </button>
+            </div>
+            <button type="submit" class="btn-primario">Buscar</button>
+          </form>
+          <p id="hero-estado-voz" class="estado-voz oculto" aria-live="polite"></p>
+
+          <div class="chips-bloque">
+            <span class="chips-label">Frecuentes:</span>
+            <div class="contenedor-chips">
+              <a href="residuos.html?q=Botellas+de+plástico" class="chip-link">Botellas de plástico</a>
+              <a href="residuos.html?q=Cajas+de+leche" class="chip-link">Cajas de leche</a>
+              <a href="residuos.html?q=Aceite+de+cocina" class="chip-link">Aceite de cocina</a>
+            </div>
+          </div>
+
+          <dl class="hero-datos">
+            <div>
+              <dt>9 residuos</dt>
+              <dd>con guía clara de entrega</dd>
+            </div>
+            <div>
+              <dt>5 puntos</dt>
+              <dd>en distritos de Lima</dd>
+            </div>
+            <div>
+              <dt>Sin registro</dt>
+              <dd>acceso libre para vecinos</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-media">
+          <figure class="hero-figura">
+            <img src="imagenes/reciclaje-lima.webp" alt="Persona separando botellas, cartón y envases limpios en casa">
+            <figcaption>Separar limpio y seco permite aprovechar más residuos sin contaminación cruzada.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA EN 3 PASOS -->
+    <section class="banda banda-blanca">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <h2>Un flujo simple de casa al punto limpio</h2>
+          <p>Cada etapa tiene su espacio dedicado para que resuelvas tus dudas sin perderte.</p>
+        </div>
+
+        <div class="pasos-home-grid">
+          <a href="residuos.html" class="tarjeta-paso-home">
+            <span class="paso-indice">01</span>
+            <h3>Identifica tu residuo</h3>
+            <p>Busca por nombre o categoría y verifica en qué tacho va y qué condiciones debe cumplir.</p>
+            <span class="tarjeta-enlace">Ir al catálogo &rarr;</span>
+          </a>
+
+          <a href="preparacion.html" class="tarjeta-paso-home">
+            <span class="paso-indice">02</span>
+            <h3>Prepara tus envases</h3>
+            <p>Sigue el protocolo interactivo en orden para vaciar, enjuagar, destapar y compactar.</p>
+            <span class="tarjeta-enlace">Abrir guía de preparación &rarr;</span>
+          </a>
+
+          <a href="puntos.html" class="tarjeta-paso-home">
+            <span class="paso-indice">03</span>
+            <h3>Ubica y agenda entrega</h3>
+            <p>Filtra centros abiertos en lista o mapa, guarda tus favoritos y crea un recordatorio.</p>
+            <span class="tarjeta-enlace">Ver puntos de acopio &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTÁNDAR DE COLORES DE TACHOS EN PERÚ (NTP 900.058) -->
+    <section class="banda banda-crema">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <h2>Colores de contenedores en Perú</h2>
+          <p>Referencia rápida basada en la norma técnica peruana para separar materiales sin mezclar.</p>
+        </div>
+
+        <div class="tachos-grid">
+          <a href="residuos.html?cat=plasticos" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-blanco"><span class="tacho-punto" aria-hidden="true"></span>Blanco</span>
+            <h3>Plásticos</h3>
+            <p>Botellas de bebidas, envases de yogur, tapas y frascos rígidos limpios.</p>
+          </a>
+
+          <a href="residuos.html?cat=papel" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-azul"><span class="tacho-punto" aria-hidden="true"></span>Azul</span>
+            <h3>Papel y Cartón</h3>
+            <p>Cajas desarmadas, cuadernos, hojas, periódicos y envases de leche secos.</p>
+          </a>
+
+          <a href="residuos.html?cat=vidrio" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-verde"><span class="tacho-punto" aria-hidden="true"></span>Verde</span>
+            <h3>Vidrio y Metales</h3>
+            <p>Botellas y frascos enteros sin tapa, además de latas de conservas y bebidas.</p>
+          </a>
+
+          <a href="residuos.html?cat=especiales" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-rojo"><span class="tacho-punto" aria-hidden="true"></span>Rojo</span>
+            <h3>Especiales y Peligrosos</h3>
+            <p>Aceite de cocina usado en botella cerrada, pilas y baterías en ánforas.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUDAS FRECUENTES (ACORDEÓN ACCESIBLE NATIVO) -->
+    <section class="banda banda-blanca">
+      <div class="contenedor faq-layout">
+        <div class="cabecera-seccion" style="margin-bottom: 0;">
+          <h2>Dudas frecuentes antes de salir</h2>
+          <p>Respuestas directas sobre los errores más comunes que hacen que un material sea rechazado.</p>
+        </div>
+
+        <div class="faq-lista">
+          <details class="faq-item">
+            <summary>¿Tengo que lavar las botellas con detergente?</summary>
+            <p>No hace falta gastar jabón ni mucha agua. Basta un enjuague rápido con poca agua para retirar restos de gaseosa, jugo o leche y evitar malos olores.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Qué pasa si dejo la caja de pizza manchada con queso?</summary>
+            <p>El cartón con grasa o restos de comida no se puede reciclar porque contamina todo el lote de papel. Solo entrega la parte limpia de la tapa si está seca.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Puedo dejar las tapas puestas en las botellas?</summary>
+            <p>Es mejor separarlas porque suelen ser de un plástico distinto al de la botella. Puedes juntar varias tapas en otra botella limpia o entregarlas aparte.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER DISCRETO PARA ENCARGADOS DE PUNTO -->
+    <section class="banda banda-encargado-cta">
+      <div class="contenedor cta-encargado-box">
+        <div>
+          <span class="etiqueta-rol-oscuro">Recicladores formales y municipalidades</span>
+          <h2>¿Administras un punto de acopio?</h2>
+          <p>Mantén al día los horarios de atención y los materiales que estás recibiendo hoy para que los vecinos lleguen preparados.</p>
+        </div>
+        <a href="encargado.html" class="btn-primario btn-lg">Ir al portal de encargados</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="asistente-widget" class="asistente-widget">
+    <button type="button" id="btn-asistente" class="btn-asistente" aria-expanded="false" aria-controls="panel-asistente">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Asistente</span>
+    </button>
+
+    <section id="panel-asistente" class="panel-asistente oculto" role="dialog" aria-label="Asistente conversacional RecycleNow">
+      <div class="asistente-cabecera">
+        <div>
+          <strong>Asistente RecycleNow</strong>
+          <small>Responde dudas frecuentes según nuestra guía</small>
+        </div>
+        <button type="button" id="btn-cerrar-asistente" class="btn-cerrar-x" aria-label="Cerrar asistente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="asistente-mensajes" class="asistente-mensajes" aria-live="polite">
+        <div class="msg-bot">Hola. Pregúntame cómo preparar un envase, qué hacer con aceite o pilas, o qué punto está abierto hoy.</div>
+      </div>
+
+      <div class="asistente-chips">
+        <button type="button" class="asistente-chip" data-pregunta="¿Dónde boto el aceite usado?">Aceite usado</button>
+        <button type="button" class="asistente-chip" data-pregunta="¿Cómo preparo una botella?">Preparar botella</button>
+        <button type="button" class="asistente-chip" data-pregunta="¿Qué punto está abierto hoy?">Abiertos hoy</button>
+      </div>
+
+      <form id="form-asistente" class="asistente-form">
+        <input type="text" id="input-asistente" placeholder="Escribe tu duda..." aria-label="Escribir consulta al asistente">
+        <button type="button" id="btn-voz-asistente" class="btn-voz-asistente" aria-label="Dictar pregunta al asistente" title="Dictar pregunta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+        </button>
+        <button type="submit" class="btn-primario btn-enviar-asistente">Enviar</button>
+      </form>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <div class="contenedor footer-contenido">
+      <div>
+        <strong>RecycleNow</strong>
+        <p>Guía ciudadana para promover la separación responsable en casa y la economía circular (ODS 12 y 13).</p>
+      </div>
+      <div class="footer-links">
+        <a href="residuos.html">Qué reciclar</a>
+        <a href="preparacion.html">Preparación</a>
+        <a href="puntos.html">Puntos de acopio</a>
+        <a href="encargado.html">Encargados</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

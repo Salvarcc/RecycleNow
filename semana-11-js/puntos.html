@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puntos de acopio — RecycleNow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="contenedor header-contenido">
+      <a href="index.html" class="marca" aria-label="RecycleNow inicio">
+        <span class="marca-icono" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+            <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+            <path d="m14 16-3 3 3 3"/>
+            <path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+            <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+            <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+          </svg>
+        </span>
+        <span>RecycleNow</span>
+      </a>
+
+      <button type="button" id="btn-menu-movil" class="btn-menu-movil" aria-expanded="false" aria-controls="nav-principal" aria-label="Abrir menú de navegación">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <nav id="nav-principal" class="nav-principal" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="residuos.html" class="nav-link">Qué reciclar</a>
+        <a href="preparacion.html" class="nav-link">Preparación</a>
+        <a href="puntos.html" class="nav-link activo" aria-current="page">Puntos de acopio</a>
+        <a href="encargado.html" class="nav-link nav-link-rol">Soy encargado</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <section class="banda banda-crema banda-cabecera-pagina">
+      <div class="contenedor">
+        <p class="migas"><a href="index.html">Inicio</a> / Puntos de acopio</p>
+        <h1>Puntos de acopio en Lima</h1>
+        <p class="cabecera-sub">Filtra por disponibilidad o distancia, guarda tus favoritos y organiza tu próxima entrega.</p>
+      </div>
+    </section>
+
+    <section class="banda banda-blanca" id="seccion-puntos-acopio">
+      <div class="contenedor">
+        <div id="bloque-recordatorios" class="recordatorios-panel oculto" aria-live="polite">
+          <div class="recordatorios-cabecera">
+            <strong>Tus entregas programadas</strong>
+            <button type="button" id="btn-limpiar-recordatorios" class="btn-texto-limpiar">Limpiar lista</button>
+          </div>
+          <ul id="lista-recordatorios" class="lista-recordatorios"></ul>
+        </div>
+
+        <div class="barra-filtros-puntos">
+          <div class="filtros-grupo">
+            <label class="filtro-check">
+              <input type="checkbox" id="filtro-abierto">
+              <span>Solo "Abierto ahora"</span>
+            </label>
+            <label class="filtro-check">
+              <input type="checkbox" id="filtro-favoritos">
+              <span>Solo favoritos</span>
+            </label>
+            <label class="filtro-select">
+              <span>Distancia:</span>
+              <select id="filtro-distancia">
+                <option value="todas">Todas</option>
+                <option value="1">Menos de 1 km</option>
+                <option value="3">Menos de 3 km</option>
+                <option value="5">Menos de 5 km</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="switch-vistas" role="tablist" aria-label="Cambiar visualización de puntos">
+            <button type="button" id="btn-vista-lista" class="activo" role="tab" aria-selected="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+              Vista Lista
+            </button>
+            <button type="button" id="btn-vista-mapa" role="tab" aria-selected="false">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+              Vista Mapa
+            </button>
+          </div>
+        </div>
+
+        <div id="sin-puntos-aviso" class="estado-vacio oculto" role="alert">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div>
+            <strong>Sin puntos disponibles con estos filtros</strong>
+            <p>Amplía el radio de distancia o desmarca los filtros activos.</p>
+          </div>
+        </div>
+
+        <div id="vista-lista" class="lista-puntos-grid">
+          <article class="tarjeta-punto item-punto" data-punto-id="punto-reducto" data-abierto="true" data-distancia="0.8">
+            <div>
+              <div class="punto-cabecera">
+                <div>
+                  <h3>Parque Reducto N° 2</h3>
+                  <p class="punto-meta">Miraflores · Calle Ramón Ribeyro cdra. 1 · <strong>0.8 km</strong></p>
+                </div>
+                <span class="badge-estado-punto badge-abierto">Abierto</span>
+              </div>
+              <p class="punto-horario" data-horario-punto="punto-reducto">Lunes a Sábado: 8:00 am - 4:00 pm</p>
+              <div class="punto-tags" data-tags-punto="punto-reducto">
+                <span>Botellas de plástico</span>
+                <span>Cartón y Papel</span>
+                <span>Vidrio</span>
+              </div>
+            </div>
+            <div class="acciones-punto">
+              <button type="button" class="btn-favorito" data-punto-id="punto-reducto" aria-pressed="false">
+                ☆ Guardar favorito
+              </button>
+              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Parque Reducto N° 2">
+                Configurar recordatorio
+              </button>
+            </div>
+          </article>
+
+          <article class="tarjeta-punto item-punto" data-punto-id="punto-olivar" data-abierto="true" data-distancia="2.3">
+            <div>
+              <div class="punto-cabecera">
+                <div>
+                  <h3>Bosque El Olivar</h3>
+                  <p class="punto-meta">San Isidro · Calle Manuel Anzieta s/n · <strong>2.3 km</strong></p>
+                </div>
+                <span class="badge-estado-punto badge-abierto">Abierto</span>
+              </div>
+              <p class="punto-horario" data-horario-punto="punto-olivar">Lunes a Viernes: 9:00 am - 5:00 pm</p>
+              <div class="punto-tags" data-tags-punto="punto-olivar">
+                <span>Botellas de plástico</span>
+                <span>Vidrio</span>
+                <span>Pilas y especiales</span>
+              </div>
+            </div>
+            <div class="acciones-punto">
+              <button type="button" class="btn-favorito" data-punto-id="punto-olivar" aria-pressed="false">
+                ☆ Guardar favorito
+              </button>
+              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Bosque El Olivar">
+                Configurar recordatorio
+              </button>
+            </div>
+          </article>
+
+          <article class="tarjeta-punto item-punto" data-punto-id="punto-barranco" data-abierto="true" data-distancia="1.7">
+            <div>
+              <div class="punto-cabecera">
+                <div>
+                  <h3>Estación Municipal Barranco</h3>
+                  <p class="punto-meta">Barranco · Av. San Martín cdra. 4 · <strong>1.7 km</strong></p>
+                </div>
+                <span class="badge-estado-punto badge-abierto">Abierto</span>
+              </div>
+              <p class="punto-horario" data-horario-punto="punto-barranco">Lunes a Sábado: 8:30 am - 5:30 pm</p>
+              <div class="punto-tags" data-tags-punto="punto-barranco">
+                <span>Botellas de plástico</span>
+                <span>Latas</span>
+                <span>Vidrio</span>
+              </div>
+            </div>
+            <div class="acciones-punto">
+              <button type="button" class="btn-favorito" data-punto-id="punto-barranco" aria-pressed="false">
+                ☆ Guardar favorito
+              </button>
+              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Estación Municipal Barranco">
+                Configurar recordatorio
+              </button>
+            </div>
+          </article>
+
+          <article class="tarjeta-punto item-punto" data-punto-id="punto-castilla" data-abierto="true" data-distancia="3.9">
+            <div>
+              <div class="punto-cabecera">
+                <div>
+                  <h3>Parque Mariscal Castilla</h3>
+                  <p class="punto-meta">Lince · Jr. Joaquín Bernal cdra. 8 · <strong>3.9 km</strong></p>
+                </div>
+                <span class="badge-estado-punto badge-abierto">Abierto</span>
+              </div>
+              <p class="punto-horario" data-horario-punto="punto-castilla">Martes a Domingo: 9:00 am - 4:30 pm</p>
+              <div class="punto-tags" data-tags-punto="punto-castilla">
+                <span>Cartón y Papel</span>
+                <span>Botellas de plástico</span>
+                <span>Aceite usado</span>
+              </div>
+            </div>
+            <div class="acciones-punto">
+              <button type="button" class="btn-favorito" data-punto-id="punto-castilla" aria-pressed="false">
+                ☆ Guardar favorito
+              </button>
+              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Parque Mariscal Castilla">
+                Configurar recordatorio
+              </button>
+            </div>
+          </article>
+
+          <article class="tarjeta-punto item-punto item-cerrado" data-punto-id="punto-loma" data-abierto="false" data-distancia="4.5">
+            <div>
+              <div class="punto-cabecera">
+                <div>
+                  <h3>Loma Amarilla</h3>
+                  <p class="punto-meta">Santiago de Surco · Av. Caminos del Inca cdra. 21 · <strong>4.5 km</strong></p>
+                </div>
+                <span class="badge-estado-punto badge-cerrado">Cerrado</span>
+              </div>
+              <p class="punto-horario" data-horario-punto="punto-loma">Martes a Domingo: 8:30 am - 3:30 pm (Cerrado hoy)</p>
+              <div class="punto-tags" data-tags-punto="punto-loma">
+                <span>Cartón y Papel</span>
+                <span>Botellas de plástico</span>
+                <span>Latas</span>
+              </div>
+            </div>
+            <div class="acciones-punto">
+              <button type="button" class="btn-favorito" data-punto-id="punto-loma" aria-pressed="false">
+                ☆ Guardar favorito
+              </button>
+              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Loma Amarilla">
+                Configurar recordatorio
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <div id="vista-mapa" class="vista-mapa-contenedor oculto">
+          <div class="mapa-lienzo" role="region" aria-label="Mapa de puntos de acopio en Lima">
+            <svg class="mapa-fondo-svg" viewBox="0 0 900 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="900" height="440" fill="#F2F3EE"/>
+              <g fill="#E7E9E2">
+                <rect x="60" y="36" width="90" height="55" rx="6"/>
+                <rect x="170" y="36" width="110" height="55" rx="6"/>
+                <rect x="330" y="36" width="95" height="55" rx="6"/>
+                <rect x="550" y="40" width="120" height="60" rx="6"/>
+                <rect x="70" y="130" width="105" height="75" rx="6"/>
+                <rect x="570" y="140" width="110" height="75" rx="6"/>
+                <rect x="720" y="130" width="120" height="80" rx="6"/>
+              </g>
+              <rect x="365" y="116" width="135" height="85" rx="14" fill="#D4EAD8"/>
+              <rect x="145" y="232" width="125" height="80" rx="14" fill="#D4EAD8"/>
+              <rect x="645" y="245" width="145" height="90" rx="16" fill="#D4EAD8"/>
+              <rect x="365" y="28" width="125" height="65" rx="12" fill="#D4EAD8"/>
+              <path d="M0 392 Q240 355 480 400 T900 375 L900 440 L0 440 Z" fill="#D4E8F2"/>
+              <path d="M0 388 Q240 351 480 396 T900 371" fill="none" stroke="#B7D7E8" stroke-width="3"/>
+              <path d="M0 108 L900 95" stroke="#FFFFFF" stroke-width="11"/>
+              <path d="M0 222 L900 212" stroke="#FFFFFF" stroke-width="9"/>
+              <path d="M0 330 L900 342" stroke="#FFFFFF" stroke-width="8"/>
+              <path d="M298 0 L325 400" stroke="#FFFFFF" stroke-width="12"/>
+              <path d="M520 0 L488 415" stroke="#FFFFFF" stroke-width="10"/>
+              <path d="M705 0 L740 395" stroke="#FFFFFF" stroke-width="9"/>
+              <text x="392" y="24" fill="#6F8073" font-size="10.5" font-family="sans-serif" font-weight="600">LINCE</text>
+              <text x="380" y="102" fill="#6F8073" font-size="10.5" font-family="sans-serif" font-weight="600">SAN ISIDRO</text>
+              <text x="145" y="216" fill="#6F8073" font-size="10.5" font-family="sans-serif" font-weight="600">MIRAFLORES</text>
+              <text x="145" y="348" fill="#6F8073" font-size="10.5" font-family="sans-serif" font-weight="600">BARRANCO</text>
+              <text x="645" y="238" fill="#6F8073" font-size="10.5" font-family="sans-serif" font-weight="600">SURCO</text>
+            </svg>
+
+            <button type="button" class="pin-mapa pin-pos-castilla" data-punto-id="punto-castilla" data-abierto="true" data-distancia="3.9" data-nombre="Parque Mariscal Castilla" data-zona="Lince · 3.9 km" data-horario="Mar – Dom, 9:00 am – 4:30 pm" data-recibe="Cartón y Papel, Botellas de plástico, Aceite usado">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span>Parque Castilla</span>
+            </button>
+
+            <button type="button" class="pin-mapa pin-pos-olivar" data-punto-id="punto-olivar" data-abierto="true" data-distancia="2.3" data-nombre="Bosque El Olivar" data-zona="San Isidro · 2.3 km" data-horario="Lun – Vie, 9:00 am – 5:00 pm" data-recibe="Botellas de plástico, Vidrio, Pilas y especiales">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span>Bosque El Olivar</span>
+            </button>
+
+            <button type="button" class="pin-mapa pin-pos-reducto" data-punto-id="punto-reducto" data-abierto="true" data-distancia="0.8" data-nombre="Parque Reducto N° 2" data-zona="Miraflores · 0.8 km" data-horario="Lun – Sáb, 8:00 am – 4:00 pm" data-recibe="Botellas de plástico, Cartón y Papel, Vidrio">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span>Parque Reducto N° 2</span>
+            </button>
+
+            <button type="button" class="pin-mapa pin-pos-barranco" data-punto-id="punto-barranco" data-abierto="true" data-distancia="1.7" data-nombre="Estación Municipal Barranco" data-zona="Barranco · 1.7 km" data-horario="Lun – Sáb, 8:30 am – 5:30 pm" data-recibe="Botellas de plástico, Latas, Vidrio">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span>Barranco</span>
+            </button>
+
+            <button type="button" class="pin-mapa pin-cerrado pin-pos-loma" data-punto-id="punto-loma" data-abierto="false" data-distancia="4.5" data-nombre="Loma Amarilla" data-zona="Surco · 4.5 km" data-horario="Mar – Dom, 8:30 am – 3:30 pm (Cerrado hoy)" data-recibe="Cartón y Papel, Botellas de plástico, Latas">
+              <span class="pin-dot" aria-hidden="true"></span>
+              <span>Loma Amarilla</span>
+            </button>
+          </div>
+
+          <div id="mapa-detalle-punto" class="mapa-detalle" aria-live="polite">
+            <div class="mapa-detalle-info">
+              <strong id="mapa-detalle-nombre">Selecciona un punto en el mapa</strong>
+              <span id="mapa-detalle-meta">Toca cualquiera de los marcadores para ver su horario, guardar favorito o programar tu entrega.</span>
+            </div>
+            <div id="mapa-detalle-acciones" class="mapa-detalle-acciones oculto">
+              <button type="button" id="mapa-btn-favorito" class="btn-favorito" data-punto-id="">☆ Guardar favorito</button>
+              <button type="button" id="mapa-btn-recordatorio" class="btn-secundario">Configurar recordatorio</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-recordatorio" class="modal-fondo oculto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-caja">
+      <div class="modal-cabecera">
+        <h3 id="modal-titulo">Programar recordatorio</h3>
+        <button type="button" id="btn-cerrar-modal-x" class="btn-cerrar-x" aria-label="Cerrar ventana">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <p class="modal-punto-label">Lugar elegido: <strong id="modal-nombre-punto">Punto de acopio</strong></p>
+
+      <form id="form-recordatorio" novalidate>
+        <div class="campo-modal">
+          <label for="recordatorio-fecha">Fecha de entrega:</label>
+          <input type="date" id="recordatorio-fecha" required>
+        </div>
+
+        <div class="campo-modal">
+          <label for="recordatorio-hora">Hora aproximada:</label>
+          <input type="time" id="recordatorio-hora" required>
+        </div>
+
+        <div id="error-recordatorio" class="mensaje-error oculto" role="alert"></div>
+
+        <div class="modal-botones">
+          <button type="button" id="btn-cerrar-modal" class="btn-secundario">Cancelar</button>
+          <button type="submit" class="btn-primario">Confirmar recordatorio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="feedback-recordatorio-global" class="alerta-toast oculto" role="status" aria-live="polite">
+    Entrega programada con éxito
+  </div>
+
+  <footer class="site-footer">
+    <div class="contenedor footer-contenido">
+      <div>
+        <strong>RecycleNow</strong>
+        <p>Guía ciudadana para promover la separación responsable en casa y la economía circular (ODS 12 y 13).</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Inicio</a>
+        <a href="residuos.html">Qué reciclar</a>
+        <a href="preparacion.html">Preparación</a>
+        <a href="encargado.html">Encargados</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

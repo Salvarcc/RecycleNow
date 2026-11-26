@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RecycleNow — Guía ciudadana de reciclaje y puntos de acopio</title>
+  <title>RecycleNow — Reciclaje ciudadano y puntos de acopio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -13,11 +13,13 @@
 </head>
 
 <body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
   <header class="site-header">
     <div class="contenedor header-contenido">
-      <a href="#identifica" class="marca" aria-label="RecycleNow inicio">
+      <a href="index.html" class="marca" aria-label="RecycleNow inicio">
         <span class="marca-icono" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
             <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
             <path d="m14 16-3 3 3 3"/>
@@ -38,561 +40,190 @@
       </button>
 
       <nav id="nav-principal" class="nav-principal" aria-label="Navegación principal">
-        <a href="#identifica" class="nav-link">Inicio</a>
-        <a href="#catalogo-materiales" class="nav-link">Residuos</a>
-        <a href="#protocolo-preparacion" class="nav-link">Preparación</a>
-        <a href="#seccion-puntos-acopio" class="nav-link">Puntos de acopio</a>
-        <a href="#panel-reciclador" class="nav-link nav-link-rol">Soy encargado</a>
+        <a href="index.html" class="nav-link activo" aria-current="page">Inicio</a>
+        <a href="residuos.html" class="nav-link">Qué reciclar</a>
+        <a href="preparacion.html" class="nav-link">Preparación</a>
+        <a href="puntos.html" class="nav-link">Puntos de acopio</a>
+        <a href="encargado.html" class="nav-link nav-link-rol">Soy encargado</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- BANDA 1: HERO -->
-    <section class="banda banda-hero" id="identifica">
+  <main id="contenido-principal">
+    <!-- HERO EDITORIAL CON BUSCADOR DIRECTO -->
+    <section class="banda banda-crema banda-hero">
       <div class="contenedor hero-grid">
         <div class="hero-texto">
-          <span class="eyebrow">Guía práctica de reciclaje ciudadano</span>
-          <h1>Reciclar en casa empieza por saber cómo hacerlo</h1>
+          <p class="hero-contexto">Lima Metropolitana · Separación y acopio ciudadano</p>
+          <h1>Recicla sin dudas cerca de tu casa.</h1>
           <p class="hero-sub">
-            Identifica qué materiales se reciben, prepáralos paso a paso sin complicaciones y ubica un punto de acopio abierto cerca de ti.
+            Consulta qué materiales reciben en tu distrito, prepáralos paso a paso y ubica un punto de acopio abierto hoy.
           </p>
 
-          <div class="hero-acciones">
-            <a href="#catalogo-materiales" class="btn-primario btn-lg">
-              Consultar un residuo
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          <form id="form-hero-busqueda" class="hero-buscador" action="residuos.html" method="get" role="search">
+            <div class="input-con-icono">
+              <svg class="icono-lupa" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
               </svg>
-            </a>
-            <a href="#seccion-puntos-acopio" class="btn-secundario btn-lg">Ver puntos cercanos</a>
-          </div>
-
-          <ul class="hero-confianza">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Sin registro previo
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Pasos guiados
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Recordatorios en tu navegador
-            </li>
-          </ul>
-        </div>
-
-        <div class="hero-media">
-          <div class="hero-foto-marco">
-            <img src="imagenes/reciclaje-lima.webp" alt="Persona separando materiales reciclables limpios en casa">
-            <div class="hero-badge-flotante">
-              <span class="badge-punto-verde" aria-hidden="true"></span>
-              <div>
-                <strong>Evita la contaminación cruzada</strong>
-                <span>Separar limpio y seco permite aprovechar más residuos</span>
-              </div>
+              <input type="text" id="hero-input-busqueda" name="q" placeholder="¿Qué quieres reciclar? Ej. botella, cartón, aceite..." aria-label="Buscar residuo para reciclar">
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BANDA 2: BUSCADOR Y CATÁLOGO -->
-    <section class="banda banda-blanca" id="catalogo-materiales">
-      <div class="contenedor">
-        <div class="cabecera-seccion">
-          <span class="etiqueta-seccion">Paso 1 · Identifica</span>
-          <h2>Consulta qué hacer con tu residuo</h2>
-          <p>Escribe el nombre del objeto, prueba una búsqueda rápida o filtra por tipo de material.</p>
-        </div>
-
-        <div class="buscador-panel">
-          <form id="form-busqueda" role="search">
-            <div class="barra-busqueda-contenedor">
-              <div class="input-con-icono">
-                <svg class="icono-lupa" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                </svg>
-                <input type="text" id="input-busqueda" placeholder="Ej. botella de agua, caja de leche, aceite, pilas..." aria-label="Buscar residuo por nombre">
-                <button type="button" id="btn-limpiar-busqueda" class="btn-limpiar-inline oculto" aria-label="Limpiar búsqueda">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-              </div>
-              <button type="submit" class="btn-primario">Buscar</button>
-            </div>
+            <button type="submit" class="btn-primario">Buscar</button>
           </form>
 
           <div class="chips-bloque">
-            <span class="chips-label">Búsquedas frecuentes:</span>
+            <span class="chips-label">Frecuentes:</span>
             <div class="contenedor-chips">
-              <button type="button" class="chip-busqueda" data-termino="Botellas de plástico">Botellas de plástico</button>
-              <button type="button" class="chip-busqueda" data-termino="Cajas de leche y jugo">Cajas de leche y jugo</button>
-              <button type="button" class="chip-busqueda" data-termino="Aceite de cocina">Aceite de cocina</button>
+              <a href="residuos.html?q=Botellas+de+plástico" class="chip-link">Botellas de plástico</a>
+              <a href="residuos.html?q=Cajas+de+leche" class="chip-link">Cajas de leche</a>
+              <a href="residuos.html?q=Aceite+de+cocina" class="chip-link">Aceite de cocina</a>
             </div>
           </div>
+
+          <dl class="hero-datos">
+            <div>
+              <dt>9 residuos</dt>
+              <dd>con guía clara de entrega</dd>
+            </div>
+            <div>
+              <dt>5 puntos</dt>
+              <dd>en distritos de Lima</dd>
+            </div>
+            <div>
+              <dt>Sin registro</dt>
+              <dd>acceso libre para vecinos</dd>
+            </div>
+          </dl>
         </div>
 
-        <div class="barra-categorias">
-          <div class="filtros-categoria" role="group" aria-label="Filtrar por tipo de material">
-            <button type="button" class="btn-categoria activo" data-categoria="todos">Todos</button>
-            <button type="button" class="btn-categoria" data-categoria="plasticos">Plásticos</button>
-            <button type="button" class="btn-categoria" data-categoria="papel">Papel y Cartón</button>
-            <button type="button" class="btn-categoria" data-categoria="vidrio">Vidrio</button>
-            <button type="button" class="btn-categoria" data-categoria="metales">Metales</button>
-            <button type="button" class="btn-categoria" data-categoria="especiales">Especiales</button>
-          </div>
-          <p id="contador-resultados" class="contador-resultados" aria-live="polite">Mostrando 6 de 6 materiales</p>
-        </div>
-
-        <div id="sin-coincidencias" class="estado-vacio oculto" role="alert">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>
-          </svg>
-          <div>
-            <strong>Sin coincidencias</strong>
-            <p>No encontramos información con ese término. Prueba con "botella", "caja" o pulsa "Todos".</p>
-          </div>
-        </div>
-
-        <div class="cuadricula-residuos" id="catalogo-residuos">
-          <article class="tarjeta-residuo" data-categoria="plasticos" data-nombre="botellas de plastico bebidas agua gaseosa pet">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-plastico" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2h4"/><path d="M12 2v3"/><path d="M9 5h6l1 4v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9z"/></svg>
-              </span>
-              <span class="badge-categoria">Plásticos</span>
-            </div>
-            <h3>Botellas de plástico</h3>
-            <p>Botellas de agua, gaseosas y jugos. Entrégalas vacías, enjuagadas, sin tapa y aplastadas.</p>
-          </article>
-
-          <article class="tarjeta-residuo" data-categoria="papel" data-nombre="cajas de leche y jugo tetra pak carton papel">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-papel" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-              </span>
-              <span class="badge-categoria">Papel y Cartón</span>
-            </div>
-            <h3>Cajas de leche y jugo</h3>
-            <p>Envases de cartón para bebidas. Abre las esquinas, enjuaga por dentro, deja secar y aplana la caja.</p>
-          </article>
-
-          <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="aceite de cocina usado vegetal frituras">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-especial" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-              </span>
-              <span class="badge-categoria">Especiales</span>
-            </div>
-            <h3>Aceite de cocina usado</h3>
-            <p>Déjalo enfriar, cuela los restos de comida y guárdalo en una botella bien cerrada. Nunca lo tires al caño.</p>
-          </article>
-
-          <article class="tarjeta-residuo" data-categoria="vidrio" data-nombre="botellas y frascos de vidrio">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-vidrio" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2h8"/><path d="M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2"/></svg>
-              </span>
-              <span class="badge-categoria">Vidrio</span>
-            </div>
-            <h3>Botellas y frascos de vidrio</h3>
-            <p>Envases de conservas y bebidas sanos y limpios. Retira las tapas metálicas o corchos antes de entregar.</p>
-          </article>
-
-          <article class="tarjeta-residuo" data-categoria="metales" data-nombre="latas de atun leche gaseosa aluminio metal">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-metal" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v14c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/></svg>
-              </span>
-              <span class="badge-categoria">Metales</span>
-            </div>
-            <h3>Latas de conservas y bebidas</h3>
-            <p>Latas de atún, leche y bebidas. Enjuágalas con poca agua para evitar olores y aplástalas ligeramente.</p>
-          </article>
-
-          <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="pilas y baterias usadas linternas controles">
-            <div class="tarjeta-residuo-top">
-              <span class="icono-material icono-especial" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="10" x="2" y="7" rx="2"/><line x1="22" x2="22" y1="11" y2="13"/><line x1="6" x2="6" y1="11" y2="13"/><line x1="10" x2="10" y1="11" y2="13"/></svg>
-              </span>
-              <span class="badge-categoria">Especiales</span>
-            </div>
-            <h3>Pilas y baterías usadas</h3>
-            <p>Contienen componentes contaminantes. No van en la bolsa común; llévalas a contenedores especiales.</p>
-          </article>
+        <div class="hero-media">
+          <figure class="hero-figura">
+            <img src="imagenes/reciclaje-lima.webp" alt="Persona separando botellas, cartón y envases limpios en casa">
+            <figcaption>Separar limpio y seco permite aprovechar más residuos sin contaminación cruzada.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- BANDA 3: PREPARACIÓN EN CASCADA -->
-    <section class="banda banda-salvia" id="protocolo-preparacion">
-      <div class="contenedor prep-grid">
-        <div class="prep-foto-wrap">
-          <img src="imagenes/botella-pet.webp" alt="Botella de plástico limpia con la tapa separada">
-          <p class="pie-foto">Ejemplo recomendado: envase vacío, sin tapa y comprimido.</p>
-        </div>
-
-        <div class="prep-tarjeta">
-          <span class="etiqueta-seccion">Paso 2 · Prepara</span>
-          <h2>Cómo preparar una botella de plástico</h2>
-          <p>Completa los 4 pasos en orden antes de llevarla al centro de acopio:</p>
-
-          <div class="progreso-bloque">
-            <div class="progreso-info">
-              <span>Progreso de preparación</span>
-              <span id="progreso-porcentaje">0%</span>
-            </div>
-            <div class="barra-progreso" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de preparación">
-              <div id="progreso-relleno" class="progreso-relleno"></div>
-            </div>
-          </div>
-
-          <div id="progreso-mensaje" class="mensaje-progreso pendiente" aria-live="polite">
-            Marca el paso 1 para habilitar el siguiente.
-          </div>
-
-          <div id="checklist-preparacion" class="checklist-lista">
-            <label class="paso-item paso-habilitado">
-              <input type="checkbox" class="check-paso" id="paso-vaciar">
-              <span class="paso-num">1</span>
-              <span class="paso-texto">
-                <strong>Vacía la botella por completo</strong>
-                <small>Sin líquidos en el interior.</small>
-              </span>
-            </label>
-
-            <label class="paso-item paso-bloqueado">
-              <input type="checkbox" class="check-paso" id="paso-enjuagar" disabled>
-              <span class="paso-num">2</span>
-              <span class="paso-texto">
-                <strong>Enjuágala brevemente si tuvo dulce o restos</strong>
-                <small class="hint-bloqueo">Completa el paso 1 para desbloquear</small>
-              </span>
-            </label>
-
-            <label class="paso-item paso-bloqueado">
-              <input type="checkbox" class="check-paso" id="paso-separar" disabled>
-              <span class="paso-num">3</span>
-              <span class="paso-texto">
-                <strong>Quítale la tapa y la etiqueta</strong>
-                <small class="hint-bloqueo">Completa el paso 2 para desbloquear</small>
-              </span>
-            </label>
-
-            <label class="paso-item paso-bloqueado">
-              <input type="checkbox" class="check-paso" id="paso-compactar" disabled>
-              <span class="paso-num">4</span>
-              <span class="paso-texto">
-                <strong>Aplasta la botella para ahorrar espacio</strong>
-                <small class="hint-bloqueo">Completa el paso 3 para desbloquear</small>
-              </span>
-            </label>
-          </div>
-
-          <button type="button" id="btn-buscar-acopio" class="btn-accion-checklist" disabled>
-            Buscar punto de acopio cercano
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- BANDA 4: PUNTOS DE ACOPIO (LISTA Y MAPA VECTORIAL) -->
-    <section class="banda banda-blanca" id="seccion-puntos-acopio">
+    <!-- CÓMO FUNCIONA EN 3 PASOS -->
+    <section class="banda banda-blanca">
       <div class="contenedor">
         <div class="cabecera-seccion">
-          <span class="etiqueta-seccion">Paso 3 · Entrega</span>
-          <h2>Puntos de acopio cercanos</h2>
-          <p>Filtra según disponibilidad o cercanía, guarda tus favoritos y programa un recordatorio de entrega.</p>
+          <h2>Un flujo simple de casa al punto limpio</h2>
+          <p>Cada etapa tiene su espacio dedicado para que resuelvas tus dudas sin perderte.</p>
         </div>
 
-        <div class="barra-filtros-puntos">
-          <div class="filtros-grupo">
-            <label class="filtro-check">
-              <input type="checkbox" id="filtro-abierto">
-              <span>Solo "Abierto ahora"</span>
-            </label>
-            <label class="filtro-select">
-              <span>Distancia:</span>
-              <select id="filtro-distancia">
-                <option value="todas">Todas</option>
-                <option value="1">Menos de 1 km</option>
-                <option value="3">Menos de 3 km</option>
-                <option value="5">Menos de 5 km</option>
-              </select>
-            </label>
-          </div>
+        <div class="pasos-home-grid">
+          <a href="residuos.html" class="tarjeta-paso-home">
+            <span class="paso-indice">01</span>
+            <h3>Identifica tu residuo</h3>
+            <p>Busca por nombre o categoría y verifica en qué tacho va y qué condiciones debe cumplir.</p>
+            <span class="tarjeta-enlace">Ir al catálogo &rarr;</span>
+          </a>
 
-          <div class="switch-vistas" role="tablist" aria-label="Cambiar vista de puntos">
-            <button type="button" id="btn-vista-lista" class="activo" role="tab" aria-selected="true">Vista Lista</button>
-            <button type="button" id="btn-vista-mapa" role="tab" aria-selected="false">Vista Mapa</button>
-          </div>
-        </div>
+          <a href="preparacion.html" class="tarjeta-paso-home">
+            <span class="paso-indice">02</span>
+            <h3>Prepara tus envases</h3>
+            <p>Sigue el protocolo interactivo en orden para vaciar, enjuagar, destapar y compactar.</p>
+            <span class="tarjeta-enlace">Abrir guía de preparación &rarr;</span>
+          </a>
 
-        <div id="sin-puntos-aviso" class="estado-vacio oculto" role="alert">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-          <div>
-            <strong>Sin puntos disponibles</strong>
-            <p>No hay puntos de acopio que coincidan con los filtros seleccionados.</p>
-          </div>
-        </div>
-
-        <div id="vista-lista" class="lista-puntos-grid">
-          <article class="tarjeta-punto item-punto" data-punto-id="punto-reducto" data-abierto="true" data-distancia="0.8">
-            <div class="punto-cabecera">
-              <div>
-                <h3>Punto Limpio Parque Reducto N° 2</h3>
-                <p class="punto-meta">Miraflores · Calle Ramón Ribeyro cdra. 1 · <strong>0.8 km</strong></p>
-              </div>
-              <span class="badge-estado-punto badge-abierto">Abierto ahora</span>
-            </div>
-            <p class="punto-horario"><strong>Horario:</strong> Lunes a Sábado, 8:00 am – 4:00 pm</p>
-            <div class="punto-tags">
-              <span>Botellas de plástico</span>
-              <span>Cartón</span>
-              <span>Vidrio</span>
-              <span>Latas</span>
-            </div>
-            <div class="acciones-punto">
-              <button type="button" class="btn-favorito" data-punto-id="punto-reducto" aria-pressed="false">
-                ☆ Guardar favorito
-              </button>
-              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Parque Reducto N° 2">
-                Configurar recordatorio
-              </button>
-            </div>
-          </article>
-
-          <article class="tarjeta-punto item-punto" data-punto-id="punto-olivar" data-abierto="true" data-distancia="2.3">
-            <div class="punto-cabecera">
-              <div>
-                <h3>Estación Bosque El Olivar</h3>
-                <p class="punto-meta">San Isidro · Calle Manuel Anzieta s/n · <strong>2.3 km</strong></p>
-              </div>
-              <span class="badge-estado-punto badge-abierto">Abierto ahora</span>
-            </div>
-            <p class="punto-horario"><strong>Horario:</strong> Lunes a Viernes, 9:00 am – 5:00 pm</p>
-            <div class="punto-tags">
-              <span>Plásticos</span>
-              <span>Vidrio</span>
-              <span>Pilas y especiales</span>
-            </div>
-            <div class="acciones-punto">
-              <button type="button" class="btn-favorito" data-punto-id="punto-olivar" aria-pressed="false">
-                ☆ Guardar favorito
-              </button>
-              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Bosque El Olivar">
-                Configurar recordatorio
-              </button>
-            </div>
-          </article>
-
-          <article class="tarjeta-punto item-punto item-cerrado" data-punto-id="punto-loma" data-abierto="false" data-distancia="4.5">
-            <div class="punto-cabecera">
-              <div>
-                <h3>Punto Loma Amarilla</h3>
-                <p class="punto-meta">Santiago de Surco · Av. Caminos del Inca cdra. 21 · <strong>4.5 km</strong></p>
-              </div>
-              <span class="badge-estado-punto badge-cerrado">Cerrado</span>
-            </div>
-            <p class="punto-horario"><strong>Horario:</strong> Martes a Domingo, 8:30 am – 3:30 pm (Cerrado hoy)</p>
-            <div class="punto-tags">
-              <span>Papel y Cartón</span>
-              <span>Plásticos</span>
-              <span>Latas</span>
-            </div>
-            <div class="acciones-punto">
-              <button type="button" class="btn-favorito" data-punto-id="punto-loma" aria-pressed="false">
-                ☆ Guardar favorito
-              </button>
-              <button type="button" class="btn-secundario btn-configurar-recordatorio" data-nombre-punto="Loma Amarilla">
-                Configurar recordatorio
-              </button>
-            </div>
-          </article>
-        </div>
-
-        <div id="vista-mapa" class="vista-mapa-contenedor oculto">
-          <div class="mapa-lienzo" role="region" aria-label="Mapa interactivo de puntos de acopio">
-            <!-- Plano vectorial limpio de calles y parques -->
-            <svg class="mapa-fondo-svg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-              <rect width="800" height="420" fill="#eef4ef"/>
-              <!-- Áreas verdes -->
-              <rect x="310" y="95" width="130" height="90" rx="14" fill="#d5ebd9"/>
-              <rect x="130" y="210" width="110" height="80" rx="12" fill="#d5ebd9"/>
-              <rect x="560" y="230" width="125" height="95" rx="14" fill="#d5ebd9"/>
-              <!-- Costa / borde azul suave -->
-              <path d="M0 370 Q200 340 420 385 T800 365 L800 420 L0 420 Z" fill="#d7eaf5"/>
-              <!-- Vías principales -->
-              <path d="M0 140 L800 120" stroke="#ffffff" stroke-width="10"/>
-              <path d="M0 265 L800 245" stroke="#ffffff" stroke-width="8"/>
-              <path d="M220 0 L260 420" stroke="#ffffff" stroke-width="10"/>
-              <path d="M510 0 L470 420" stroke="#ffffff" stroke-width="8"/>
-              <path d="M640 0 L670 420" stroke="#ffffff" stroke-width="6"/>
-              <!-- Etiquetas distritales discretas -->
-              <text x="335" y="75" fill="#708777" font-size="13" font-family="sans-serif" font-weight="600">SAN ISIDRO</text>
-              <text x="135" y="195" fill="#708777" font-size="13" font-family="sans-serif" font-weight="600">MIRAFLORES</text>
-              <text x="580" y="215" fill="#708777" font-size="13" font-family="sans-serif" font-weight="600">SURCO</text>
-            </svg>
-
-            <button type="button" class="pin-mapa pin-pos-reducto" data-punto-id="punto-reducto" data-abierto="true" data-distancia="0.8" data-nombre="Parque Reducto N° 2" data-zona="Miraflores · 0.8 km" data-horario="Lunes a Sábado, 8:00 am – 4:00 pm" data-recibe="Botellas de plástico, Cartón, Vidrio, Latas">
-              <span class="pin-dot" aria-hidden="true"></span>
-              <span>Parque Reducto N° 2 · 0.8 km</span>
-            </button>
-
-            <button type="button" class="pin-mapa pin-pos-olivar" data-punto-id="punto-olivar" data-abierto="true" data-distancia="2.3" data-nombre="Bosque El Olivar" data-zona="San Isidro · 2.3 km" data-horario="Lunes a Viernes, 9:00 am – 5:00 pm" data-recibe="Plásticos, Vidrio, Pilas y especiales">
-              <span class="pin-dot" aria-hidden="true"></span>
-              <span>Bosque El Olivar · 2.3 km</span>
-            </button>
-
-            <button type="button" class="pin-mapa pin-cerrado pin-pos-loma" data-punto-id="punto-loma" data-abierto="false" data-distancia="4.5" data-nombre="Loma Amarilla" data-zona="Surco · 4.5 km" data-horario="Martes a Domingo, 8:30 am – 3:30 pm (Cerrado hoy)" data-recibe="Papel y Cartón, Plásticos, Latas">
-              <span class="pin-dot" aria-hidden="true"></span>
-              <span>Loma Amarilla · 4.5 km (Cerrado)</span>
-            </button>
-          </div>
-
-          <div id="mapa-detalle-punto" class="mapa-detalle" aria-live="polite">
-            <div class="mapa-detalle-info">
-              <strong id="mapa-detalle-nombre">Selecciona un punto en el mapa</strong>
-              <span id="mapa-detalle-meta">Toca cualquiera de los marcadores verdes para ver su horario y guardar un recordatorio.</span>
-            </div>
-            <div id="mapa-detalle-acciones" class="mapa-detalle-acciones oculto">
-              <button type="button" id="mapa-btn-favorito" class="btn-favorito" data-punto-id="">☆ Guardar favorito</button>
-              <button type="button" id="mapa-btn-recordatorio" class="btn-secundario">Configurar recordatorio</button>
-            </div>
-          </div>
+          <a href="puntos.html" class="tarjeta-paso-home">
+            <span class="paso-indice">03</span>
+            <h3>Ubica y agenda entrega</h3>
+            <p>Filtra centros abiertos en lista o mapa, guarda tus favoritos y crea un recordatorio.</p>
+            <span class="tarjeta-enlace">Ver puntos de acopio &rarr;</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- BANDA 5: ÁREA DIFERENCIADA PARA ENCARGADOS DE RECICLAJE -->
-    <section class="banda banda-salvia" id="panel-reciclador">
+    <!-- ESTÁNDAR DE COLORES DE TACHOS EN PERÚ (NTP 900.058) -->
+    <section class="banda banda-crema">
       <div class="contenedor">
         <div class="cabecera-seccion">
-          <span class="etiqueta-seccion etiqueta-rol">Área para encargados de punto de acopio</span>
-          <h2>Gestionar recepción de residuos</h2>
-          <p>Si administras un centro o estación limpia, actualiza aquí los días, horarios y materiales que estás recibiendo hoy.</p>
+          <h2>Colores de contenedores en Perú</h2>
+          <p>Referencia rápida basada en la norma técnica peruana para separar materiales sin mezclar.</p>
         </div>
 
-        <div class="admin-grid">
-          <form id="form-admin-reciclador" class="admin-tarjeta">
-            <p class="campo-titulo"><strong>Horario de atención:</strong></p>
-            <div class="horario-selectores">
-              <div class="campo-grupo">
-                <label for="admin-dias">Días</label>
-                <select id="admin-dias">
-                  <option value="Lunes a Sábado">Lunes a Sábado</option>
-                  <option value="Lunes a Viernes">Lunes a Viernes</option>
-                  <option value="Sábados y Domingos">Sábados y Domingos</option>
-                  <option value="Todos los días">Todos los días</option>
-                </select>
-              </div>
-              <div class="campo-grupo">
-                <label for="admin-hora-apertura">Apertura</label>
-                <input type="time" id="admin-hora-apertura" value="08:00">
-              </div>
-              <div class="campo-grupo">
-                <label for="admin-hora-cierre">Cierre</label>
-                <input type="time" id="admin-hora-cierre" value="16:00">
-              </div>
-            </div>
-            <div id="error-horario-admin" class="mensaje-error oculto" role="alert">
-              La hora de cierre debe ser posterior a la hora de apertura.
-            </div>
+        <div class="tachos-grid">
+          <a href="residuos.html?cat=plasticos" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-blanco"><span class="tacho-punto" aria-hidden="true"></span>Blanco</span>
+            <h3>Plásticos</h3>
+            <p>Botellas de bebidas, envases de yogur, tapas y frascos rígidos limpios.</p>
+          </a>
 
-            <div class="bloque-materiales-admin">
-              <p class="campo-titulo"><strong>Materiales aceptados (toca para activar o desactivar):</strong></p>
-              <div class="contenedor-chips" id="contenedor-chips-admin">
-                <button type="button" class="chip-material-admin seleccionado" data-material="Botellas de plástico">Botellas de plástico</button>
-                <button type="button" class="chip-material-admin seleccionado" data-material="Cartón y Papel">Cartón y Papel</button>
-                <button type="button" class="chip-material-admin seleccionado" data-material="Vidrio">Vidrio</button>
-                <button type="button" class="chip-material-admin" data-material="Latas">Latas</button>
-                <button type="button" class="chip-material-admin" data-material="Pilas y especiales">Pilas y especiales</button>
-              </div>
-              <div id="error-materiales-admin" class="mensaje-error oculto" role="alert">
-                Debes seleccionar al menos un tipo de material antes de publicar.
-              </div>
-            </div>
+          <a href="residuos.html?cat=papel" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-azul"><span class="tacho-punto" aria-hidden="true"></span>Azul</span>
+            <h3>Papel y Cartón</h3>
+            <p>Cajas desarmadas, cuadernos, hojas, periódicos y envases de leche secos.</p>
+          </a>
 
-            <button type="submit" id="btn-publicar-criterios" class="btn-primario">Publicar cambios</button>
-          </form>
+          <a href="residuos.html?cat=vidrio" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-verde"><span class="tacho-punto" aria-hidden="true"></span>Verde</span>
+            <h3>Vidrio y Metales</h3>
+            <p>Botellas y frascos enteros sin tapa, además de latas de conservas y bebidas.</p>
+          </a>
 
-          <aside class="caja-preview" aria-label="Vista previa para vecinos">
-            <span class="preview-etiqueta">Vista previa pública</span>
-            <h3>Así lo verán los vecinos</h3>
-            <div class="preview-dato">
-              <span>Horario publicado</span>
-              <strong id="vista-horario-actual">Lunes a Sábado: 8:00 am - 4:00 pm</strong>
-            </div>
-            <div class="preview-dato">
-              <span>Materiales aceptados</span>
-              <strong id="vista-materiales-actual">Botellas de plástico, Cartón y Papel, Vidrio</strong>
-            </div>
-            <div class="preview-dato">
-              <span>Estado</span>
-              <div>
-                <span id="badge-estado-publicacion" class="badge-estado estado-pendiente">Pendiente de publicar</span>
-              </div>
-            </div>
-          </aside>
+          <a href="residuos.html?cat=especiales" class="tarjeta-tacho">
+            <span class="tacho-indicador tacho-rojo"><span class="tacho-punto" aria-hidden="true"></span>Rojo</span>
+            <h3>Especiales y Peligrosos</h3>
+            <p>Aceite de cocina usado en botella cerrada, pilas y baterías en ánforas.</p>
+          </a>
         </div>
+      </div>
+    </section>
+
+    <!-- DUDAS FRECUENTES (ACORDEÓN ACCESIBLE NATIVO) -->
+    <section class="banda banda-blanca">
+      <div class="contenedor faq-layout">
+        <div class="cabecera-seccion" style="margin-bottom: 0;">
+          <h2>Dudas frecuentes antes de salir</h2>
+          <p>Respuestas directas sobre los errores más comunes que hacen que un material sea rechazado.</p>
+        </div>
+
+        <div class="faq-lista">
+          <details class="faq-item">
+            <summary>¿Tengo que lavar las botellas con detergente?</summary>
+            <p>No hace falta gastar jabón ni mucha agua. Basta un enjuague rápido con poca agua para retirar restos de gaseosa, jugo o leche y evitar malos olores.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Qué pasa si dejo la caja de pizza manchada con queso?</summary>
+            <p>El cartón con grasa o restos de comida no se puede reciclar porque contamina todo el lote de papel. Solo entrega la parte limpia de la tapa si está seca.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>¿Puedo dejar las tapas puestas en las botellas?</summary>
+            <p>Es mejor separarlas porque suelen ser de un plástico distinto al de la botella. Puedes juntar varias tapas en otra botella limpia o entregarlas aparte.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER DISCRETO PARA ENCARGADOS DE PUNTO -->
+    <section class="banda banda-encargado-cta">
+      <div class="contenedor cta-encargado-box">
+        <div>
+          <span class="etiqueta-rol-oscuro">Recicladores formales y municipalidades</span>
+          <h2>¿Administras un punto de acopio?</h2>
+          <p>Mantén al día los horarios de atención y los materiales que estás recibiendo hoy para que los vecinos lleguen preparados.</p>
+        </div>
+        <a href="encargado.html" class="btn-primario btn-lg">Ir al portal de encargados</a>
       </div>
     </section>
   </main>
-
-  <div id="modal-recordatorio" class="modal-fondo oculto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
-    <div class="modal-caja">
-      <div class="modal-cabecera">
-        <h3 id="modal-titulo">Programar recordatorio</h3>
-        <button type="button" id="btn-cerrar-modal-x" class="btn-cerrar-x" aria-label="Cerrar ventana">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-      <p class="modal-punto-label">Lugar elegido: <strong id="modal-nombre-punto">Punto de acopio</strong></p>
-
-      <form id="form-recordatorio" novalidate>
-        <div class="campo-modal">
-          <label for="recordatorio-fecha">Fecha de entrega:</label>
-          <input type="date" id="recordatorio-fecha" required>
-        </div>
-
-        <div class="campo-modal">
-          <label for="recordatorio-hora">Hora aproximada:</label>
-          <input type="time" id="recordatorio-hora" required>
-        </div>
-
-        <div id="error-recordatorio" class="mensaje-error oculto" role="alert"></div>
-
-        <div class="modal-botones">
-          <button type="button" id="btn-cerrar-modal" class="btn-secundario">Cancelar</button>
-          <button type="submit" class="btn-primario">Confirmar recordatorio</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div id="feedback-recordatorio-global" class="alerta-toast oculto" role="status" aria-live="polite">
-    Entrega programada con éxito
-  </div>
-
-  <div id="alerta-publicacion-admin" class="alerta-toast alerta-toast-secundaria oculto" role="status" aria-live="polite">
-    Criterios y horarios publicados exitosamente.
-  </div>
 
   <footer class="site-footer">
     <div class="contenedor footer-contenido">
       <div>
         <strong>RecycleNow</strong>
-        <p>Guía ciudadana para promover la separación responsable y la economía circular (ODS 12 y 13).</p>
+        <p>Guía ciudadana para promover la separación responsable en casa y la economía circular (ODS 12 y 13).</p>
       </div>
       <div class="footer-links">
-        <a href="#catalogo-materiales">Residuos</a>
-        <a href="#protocolo-preparacion">Preparación</a>
-        <a href="#seccion-puntos-acopio">Puntos de acopio</a>
-        <a href="#panel-reciclador">Encargados</a>
+        <a href="residuos.html">Qué reciclar</a>
+        <a href="preparacion.html">Preparación</a>
+        <a href="puntos.html">Puntos de acopio</a>
+        <a href="encargado.html">Encargados</a>
       </div>
     </div>
   </footer>

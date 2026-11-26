@@ -1,3 +1,6 @@
 # Python scripts temporales
 generate_*.py
 __pycache__/
+
+# Contexto local exclusivo para IAs (no subir al repositorio)
+README_IA.md

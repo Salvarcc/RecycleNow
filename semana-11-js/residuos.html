@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qué reciclar — RecycleNow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="contenedor header-contenido">
+      <a href="index.html" class="marca" aria-label="RecycleNow inicio">
+        <span class="marca-icono" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+            <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+            <path d="m14 16-3 3 3 3"/>
+            <path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+            <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+            <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+          </svg>
+        </span>
+        <span>RecycleNow</span>
+      </a>
+
+      <button type="button" id="btn-menu-movil" class="btn-menu-movil" aria-expanded="false" aria-controls="nav-principal" aria-label="Abrir menú de navegación">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <nav id="nav-principal" class="nav-principal" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="residuos.html" class="nav-link activo" aria-current="page">Qué reciclar</a>
+        <a href="preparacion.html" class="nav-link">Preparación</a>
+        <a href="puntos.html" class="nav-link">Puntos de acopio</a>
+        <a href="encargado.html" class="nav-link nav-link-rol">Soy encargado</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <section class="banda banda-crema banda-cabecera-pagina">
+      <div class="contenedor">
+        <p class="migas"><a href="index.html">Inicio</a> / Qué reciclar</p>
+        <h1>Catálogo de materiales reciclables</h1>
+        <p class="cabecera-sub">Consulta cómo separar cada residuo, qué contenedor le corresponde y qué evitar mezclar.</p>
+      </div>
+    </section>
+
+    <section class="banda banda-blanca" id="catalogo-materiales">
+      <div class="contenedor">
+        <div class="buscador-caja">
+          <form id="form-busqueda" role="search">
+            <div class="barra-busqueda-contenedor">
+              <div class="input-con-icono">
+                <svg class="icono-lupa" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="text" id="input-busqueda" placeholder="Escribe un objeto: botella, caja de leche, vidrio, aceite, pilas..." aria-label="Buscar residuo por nombre">
+                <button type="button" id="btn-limpiar-busqueda" class="btn-limpiar-inline oculto" aria-label="Limpiar búsqueda">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+              </div>
+              <button type="submit" class="btn-primario">Buscar</button>
+            </div>
+          </form>
+
+          <div class="chips-bloque">
+            <span class="chips-label">Búsquedas rápidas:</span>
+            <div class="contenedor-chips">
+              <button type="button" class="chip-busqueda" data-termino="Botellas de plástico">Botellas de plástico</button>
+              <button type="button" class="chip-busqueda" data-termino="Cajas de leche y jugo">Cajas de leche y jugo</button>
+              <button type="button" class="chip-busqueda" data-termino="Aceite de cocina">Aceite de cocina</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="barra-categorias">
+          <div class="filtros-categoria" role="group" aria-label="Filtrar por categoría de material">
+            <button type="button" class="btn-categoria activo" data-categoria="todos">Todos</button>
+            <button type="button" class="btn-categoria" data-categoria="plasticos">Plásticos</button>
+            <button type="button" class="btn-categoria" data-categoria="papel">Papel y Cartón</button>
+            <button type="button" class="btn-categoria" data-categoria="vidrio">Vidrio</button>
+            <button type="button" class="btn-categoria" data-categoria="metales">Metales</button>
+            <button type="button" class="btn-categoria" data-categoria="especiales">Especiales</button>
+          </div>
+          <p id="contador-resultados" class="contador-resultados" aria-live="polite">Mostrando 9 de 9 materiales</p>
+        </div>
+
+        <div id="sin-coincidencias" class="estado-vacio oculto" role="alert">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>
+          </svg>
+          <div>
+            <strong>Sin coincidencias</strong>
+            <p>No encontramos información con ese nombre. Prueba con "botella", "caja", "vidrio" o pulsa "Todos".</p>
+          </div>
+        </div>
+
+        <div class="cuadricula-residuos" id="catalogo-residuos">
+          <article class="tarjeta-residuo" data-categoria="plasticos" data-nombre="botellas de plastico bebidas agua gaseosa pet">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-blanco"><span class="tacho-punto" aria-hidden="true"></span>Tacho Blanco · Plásticos</span>
+            </div>
+            <h3>Botellas de plástico</h3>
+            <p>Agua, gaseosas y jugos. Entrégalas vacías, enjuagadas, sin tapa y aplastadas.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> botellas con líquido o aceite adentro.</p>
+            <a href="preparacion.html" class="tarjeta-enlace">Ver pasos de preparación &rarr;</a>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="plasticos" data-nombre="envases rigidos shampoo yogur limpieza tapas plastico">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-blanco"><span class="tacho-punto" aria-hidden="true"></span>Tacho Blanco · Plásticos</span>
+            </div>
+            <h3>Envases de yogur y limpieza</h3>
+            <p>Envases plásticos duros de yogur, champú o detergente líquido bien enjuagados y secos.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> bolsas muy delgadas sucias o envases de lejía sin lavar.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="papel" data-nombre="cajas de leche y jugo tetra pak carton papel">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-azul"><span class="tacho-punto" aria-hidden="true"></span>Tacho Azul · Papel y cartón</span>
+            </div>
+            <h3>Cajas de leche y jugo</h3>
+            <p>Envases multicapa para bebidas. Abre las esquinas, enjuaga por dentro, seca y aplana.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> dejar restos de leche fermentados.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="papel" data-nombre="cajas carton cuadernos papel bond periodicos revistas">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-azul"><span class="tacho-punto" aria-hidden="true"></span>Tacho Azul · Papel y cartón</span>
+            </div>
+            <h3>Cartón, hojas y cuadernos</h3>
+            <p>Cajas de entregas desarmadas, papel de oficina, periódicos y libros sin espiral metálico.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> servilletas usadas, papel higiénico o cartón con grasa.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="vidrio" data-nombre="botellas y frascos de vidrio mermelada cafe">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-verde"><span class="tacho-punto" aria-hidden="true"></span>Tacho Verde · Vidrio</span>
+            </div>
+            <h3>Botellas y frascos de vidrio</h3>
+            <p>Envases de conservas, café o bebidas sanos y limpios. Retira las tapas metálicas antes.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> espejos rotos, focos o vidrios de ventana.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="metales" data-nombre="latas de atun leche gaseosa aluminio metal conservas">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-verde"><span class="tacho-punto" aria-hidden="true"></span>Tacho Verde · Metales</span>
+            </div>
+            <h3>Latas de conservas y bebidas</h3>
+            <p>Latas de atún, leche evaporada y gaseosas. Enjuágalas con poca agua y aplástalas.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> latas con restos de comida o pintura.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="aceite de cocina usado vegetal frituras">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-rojo"><span class="tacho-punto" aria-hidden="true"></span>Tacho Rojo · Especiales</span>
+            </div>
+            <h3>Aceite de cocina usado</h3>
+            <p>Déjalo enfriar, cuela los restos de comida y guárdalo en una botella bien cerrada.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> verterlo en el lavadero o en el inodoro.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="pilas y baterias usadas linternas controles">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-rojo"><span class="tacho-punto" aria-hidden="true"></span>Tacho Rojo · Especiales</span>
+            </div>
+            <h3>Pilas y baterías usadas</h3>
+            <p>Contienen metales pesados. Junta las pilas agotadas y déjalas en ánforas autorizadas.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> botarlas en la bolsa común de basura.</p>
+          </article>
+
+          <article class="tarjeta-residuo" data-categoria="especiales" data-nombre="celulares cables cargadores aparatos electronicos pequenos">
+            <div class="tarjeta-residuo-top">
+              <span class="tacho-indicador tacho-rojo"><span class="tacho-punto" aria-hidden="true"></span>Tacho Rojo · Especiales</span>
+            </div>
+            <h3>Cables y aparatos pequeños</h3>
+            <p>Cargadores dañados, audífonos, controles o celulares viejos en puntos de acopio específicos.</p>
+            <p class="regla-evitar"><strong>Evita:</strong> desarmar baterías hinchadas en casa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="contenedor footer-contenido">
+      <div>
+        <strong>RecycleNow</strong>
+        <p>Guía ciudadana para promover la separación responsable en casa y la economía circular (ODS 12 y 13).</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Inicio</a>
+        <a href="preparacion.html">Preparación</a>
+        <a href="puntos.html">Puntos de acopio</a>
+        <a href="encargado.html">Encargados</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

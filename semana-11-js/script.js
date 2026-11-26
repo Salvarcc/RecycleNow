@@ -109,6 +109,13 @@ function iniciarBuscadorYChips() {
       filtrarPorTermino(termino);
     });
   });
+
+  const params = new URLSearchParams(window.location.search);
+  const queryUrl = params.get('q');
+  if (queryUrl) {
+    inputBusqueda.value = queryUrl;
+    filtrarPorTermino(queryUrl);
+  }
 }
 
 function iniciarFiltroCategorias() {
@@ -120,36 +127,45 @@ function iniciarFiltroCategorias() {
 
   if (botonesCategoria.length === 0) return;
 
-  botonesCategoria.forEach(boton => {
-    boton.addEventListener('click', () => {
-      botonesCategoria.forEach(btn => btn.classList.remove('activo'));
-      boton.classList.add('activo');
+  function seleccionarCategoria(boton) {
+    botonesCategoria.forEach(btn => btn.classList.remove('activo'));
+    boton.classList.add('activo');
 
-      const categoriaSeleccionada = boton.getAttribute('data-categoria');
+    const categoriaSeleccionada = boton.getAttribute('data-categoria');
 
-      if (inputBusqueda) inputBusqueda.value = '';
-      if (btnLimpiar) btnLimpiar.classList.add('oculto');
-      if (avisoSinCoincidencias) avisoSinCoincidencias.classList.add('oculto');
+    if (inputBusqueda) inputBusqueda.value = '';
+    if (btnLimpiar) btnLimpiar.classList.add('oculto');
+    if (avisoSinCoincidencias) avisoSinCoincidencias.classList.add('oculto');
 
-      let visibles = 0;
-      tarjetasResiduo.forEach(tarjeta => {
-        const categoriaTarjeta = tarjeta.getAttribute('data-categoria');
+    let visibles = 0;
+    tarjetasResiduo.forEach(tarjeta => {
+      const categoriaTarjeta = tarjeta.getAttribute('data-categoria');
 
-        if (categoriaSeleccionada === 'todos' || categoriaTarjeta === categoriaSeleccionada) {
-          tarjeta.classList.remove('oculto');
-          visibles++;
-        } else {
-          tarjeta.classList.add('oculto');
-        }
-      });
-
-      actualizarContadorResiduos(visibles, tarjetasResiduo.length);
-
-      if (avisoSinCoincidencias) {
-        avisoSinCoincidencias.classList.toggle('oculto', visibles > 0);
+      if (categoriaSeleccionada === 'todos' || categoriaTarjeta === categoriaSeleccionada) {
+        tarjeta.classList.remove('oculto');
+        visibles++;
+      } else {
+        tarjeta.classList.add('oculto');
       }
     });
+
+    actualizarContadorResiduos(visibles, tarjetasResiduo.length);
+
+    if (avisoSinCoincidencias) {
+      avisoSinCoincidencias.classList.toggle('oculto', visibles > 0);
+    }
+  }
+
+  botonesCategoria.forEach(boton => {
+    boton.addEventListener('click', () => seleccionarCategoria(boton));
   });
+
+  const params = new URLSearchParams(window.location.search);
+  const catUrl = params.get('cat');
+  if (catUrl) {
+    const btnMatch = document.querySelector(`.btn-categoria[data-categoria="${catUrl}"]`);
+    if (btnMatch) seleccionarCategoria(btnMatch);
+  }
 }
 
 function iniciarChecklistPreparacion() {
@@ -228,29 +244,28 @@ function iniciarChecklistPreparacion() {
 
   btnBuscarAcopio.addEventListener('click', (e) => {
     e.preventDefault();
-    const seccionPuntos = document.getElementById('seccion-puntos-acopio');
-    if (seccionPuntos) {
-      seccionPuntos.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.location.href = 'puntos.html';
   });
 }
 
 const CLAVE_FAVORITOS = 'recyclenow_puntos_favoritos';
+const CLAVE_RECORDATORIOS = 'recyclenow_recordatorios';
+const CLAVE_CRITERIOS_PUNTOS = 'recyclenow_puntos_custom';
 
-function obtenerFavoritos() {
+function obtenerJsonStorage(clave, defecto) {
   try {
-    return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS)) || [];
+    return JSON.parse(localStorage.getItem(clave)) || defecto;
   } catch {
-    return [];
+    return defecto;
   }
 }
 
-function guardarFavoritos(favoritos) {
-  localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(favoritos));
+function guardarJsonStorage(clave, valor) {
+  localStorage.setItem(clave, JSON.stringify(valor));
 }
 
 function sincronizarBotonesFavorito() {
-  const favoritos = obtenerFavoritos();
+  const favoritos = obtenerJsonStorage(CLAVE_FAVORITOS, []);
   document.querySelectorAll('.btn-favorito').forEach(btn => {
     const id = btn.getAttribute('data-punto-id');
     if (!id) return;
@@ -261,12 +276,40 @@ function sincronizarBotonesFavorito() {
   });
 }
 
+function aplicarCambiosDeEncargadoEnPuntos() {
+  const cambios = obtenerJsonStorage(CLAVE_CRITERIOS_PUNTOS, {});
+  Object.keys(cambios).forEach(puntoId => {
+    const info = cambios[puntoId];
+    const horarioEl = document.querySelector(`[data-horario-punto="${puntoId}"]`);
+    if (horarioEl && info.horario) {
+      horarioEl.textContent = info.horario;
+    }
+
+    const tagsEl = document.querySelector(`[data-tags-punto="${puntoId}"]`);
+    if (tagsEl && Array.isArray(info.materiales)) {
+      tagsEl.innerHTML = '';
+      info.materiales.forEach(mat => {
+        const span = document.createElement('span');
+        span.textContent = mat;
+        tagsEl.appendChild(span);
+      });
+    }
+
+    const pinEl = document.querySelector(`.pin-mapa[data-punto-id="${puntoId}"]`);
+    if (pinEl) {
+      if (info.horario) pinEl.setAttribute('data-horario', info.horario);
+      if (Array.isArray(info.materiales)) pinEl.setAttribute('data-recibe', info.materiales.join(', '));
+    }
+  });
+}
+
 function iniciarFiltrosYVistasPuntos() {
   const btnVistaLista = document.getElementById('btn-vista-lista');
   const btnVistaMapa = document.getElementById('btn-vista-mapa');
   const contenedorLista = document.getElementById('vista-lista');
   const contenedorMapa = document.getElementById('vista-mapa');
   const filtroAbierto = document.getElementById('filtro-abierto');
+  const filtroFavoritos = document.getElementById('filtro-favoritos');
   const filtroDistancia = document.getElementById('filtro-distancia');
   const puntosAcopio = document.querySelectorAll('.item-punto');
   const pinesMapa = document.querySelectorAll('.pin-mapa');
@@ -278,6 +321,8 @@ function iniciarFiltrosYVistasPuntos() {
   const avisoSinPuntos = document.getElementById('sin-puntos-aviso');
 
   if (!btnVistaLista || !btnVistaMapa || !contenedorLista || !contenedorMapa) return;
+
+  aplicarCambiosDeEncargadoEnPuntos();
 
   btnVistaLista.addEventListener('click', () => {
     btnVistaLista.classList.add('activo');
@@ -299,31 +344,35 @@ function iniciarFiltrosYVistasPuntos() {
 
   function resetearDetalleMapa() {
     if (detalleNombre) detalleNombre.textContent = 'Selecciona un punto en el mapa';
-    if (detalleMeta) detalleMeta.textContent = 'Toca cualquiera de los marcadores para ver su horario y programar un recordatorio.';
+    if (detalleMeta) detalleMeta.textContent = 'Toca cualquiera de los marcadores para ver su horario, guardar favorito o programar tu entrega.';
     if (detalleAcciones) detalleAcciones.classList.add('oculto');
   }
 
   function aplicarFiltrosPuntos() {
     const soloAbiertos = filtroAbierto ? filtroAbierto.checked : false;
+    const soloFavs = filtroFavoritos ? filtroFavoritos.checked : false;
     const distanciaMax = filtroDistancia && filtroDistancia.value !== 'todas'
       ? parseFloat(filtroDistancia.value)
       : Infinity;
+    const favoritos = obtenerJsonStorage(CLAVE_FAVORITOS, []);
 
     let visibles = 0;
 
     puntosAcopio.forEach(punto => {
+      const id = punto.getAttribute('data-punto-id');
       const estaAbierto = punto.getAttribute('data-abierto') === 'true';
       const distancia = parseFloat(punto.getAttribute('data-distancia') || '0');
-      const cumple = (!soloAbiertos || estaAbierto) && distancia <= distanciaMax;
+      const cumple = (!soloAbiertos || estaAbierto) && (!soloFavs || favoritos.includes(id)) && distancia <= distanciaMax;
 
       punto.classList.toggle('oculto', !cumple);
       if (cumple) visibles++;
     });
 
     pinesMapa.forEach(pin => {
+      const id = pin.getAttribute('data-punto-id');
       const estaAbierto = pin.getAttribute('data-abierto') === 'true';
       const distancia = parseFloat(pin.getAttribute('data-distancia') || '0');
-      const cumple = (!soloAbiertos || estaAbierto) && distancia <= distanciaMax;
+      const cumple = (!soloAbiertos || estaAbierto) && (!soloFavs || favoritos.includes(id)) && distancia <= distanciaMax;
 
       pin.classList.toggle('oculto', !cumple);
       if (!cumple && pin.classList.contains('pin-activo')) {
@@ -363,7 +412,14 @@ function iniciarFiltrosYVistasPuntos() {
   });
 
   if (filtroAbierto) filtroAbierto.addEventListener('change', aplicarFiltrosPuntos);
+  if (filtroFavoritos) filtroFavoritos.addEventListener('change', aplicarFiltrosPuntos);
   if (filtroDistancia) filtroDistancia.addEventListener('change', aplicarFiltrosPuntos);
+
+  document.addEventListener('favoritosActualizados', () => {
+    if (filtroFavoritos && filtroFavoritos.checked) {
+      aplicarFiltrosPuntos();
+    }
+  });
 }
 
 function iniciarFavoritosYRecordatorio() {
@@ -377,13 +433,42 @@ function iniciarFavoritosYRecordatorio() {
   const errorRecordatorio = document.getElementById('error-recordatorio');
   const feedbackGlobal = document.getElementById('feedback-recordatorio-global');
   const mapaBtnRecordatorio = document.getElementById('mapa-btn-recordatorio');
+  const bloqueRecordatorios = document.getElementById('bloque-recordatorios');
+  const listaRecordatorios = document.getElementById('lista-recordatorios');
+  const btnLimpiarRecordatorios = document.getElementById('btn-limpiar-recordatorios');
 
   if (inputFecha) {
     const hoy = new Date().toISOString().split('T')[0];
     inputFecha.setAttribute('min', hoy);
   }
 
+  function renderizarRecordatorios() {
+    if (!bloqueRecordatorios || !listaRecordatorios) return;
+    const recordatorios = obtenerJsonStorage(CLAVE_RECORDATORIOS, []);
+    listaRecordatorios.innerHTML = '';
+
+    if (recordatorios.length === 0) {
+      bloqueRecordatorios.classList.add('oculto');
+      return;
+    }
+
+    recordatorios.forEach(rec => {
+      const li = document.createElement('li');
+      li.textContent = `${rec.punto} — ${rec.fecha} a las ${rec.hora}`;
+      listaRecordatorios.appendChild(li);
+    });
+    bloqueRecordatorios.classList.remove('oculto');
+  }
+
   sincronizarBotonesFavorito();
+  renderizarRecordatorios();
+
+  if (btnLimpiarRecordatorios) {
+    btnLimpiarRecordatorios.addEventListener('click', () => {
+      guardarJsonStorage(CLAVE_RECORDATORIOS, []);
+      renderizarRecordatorios();
+    });
+  }
 
   document.addEventListener('click', (e) => {
     const btnFav = e.target.closest('.btn-favorito');
@@ -391,19 +476,25 @@ function iniciarFavoritosYRecordatorio() {
     const id = btnFav.getAttribute('data-punto-id');
     if (!id) return;
 
-    let actuales = obtenerFavoritos();
+    let actuales = obtenerJsonStorage(CLAVE_FAVORITOS, []);
     if (actuales.includes(id)) {
       actuales = actuales.filter(item => item !== id);
     } else {
       actuales.push(id);
     }
-    guardarFavoritos(actuales);
+    guardarJsonStorage(CLAVE_FAVORITOS, actuales);
     sincronizarBotonesFavorito();
+    document.dispatchEvent(new CustomEvent('favoritosActualizados'));
   });
+
+  let ultimoElementoEnfocado = null;
+  let puntoSeleccionadoActual = 'Punto de acopio';
 
   function abrirModalPara(nombrePunto) {
     if (!modalRecordatorio) return;
-    if (spanNombrePunto) spanNombrePunto.textContent = nombrePunto || 'Punto de acopio';
+    ultimoElementoEnfocado = document.activeElement;
+    puntoSeleccionadoActual = nombrePunto || 'Punto de acopio';
+    if (spanNombrePunto) spanNombrePunto.textContent = puntoSeleccionadoActual;
     if (errorRecordatorio) errorRecordatorio.classList.add('oculto');
     modalRecordatorio.classList.remove('oculto');
     if (inputFecha) inputFecha.focus();
@@ -414,6 +505,10 @@ function iniciarFavoritosYRecordatorio() {
     modalRecordatorio.classList.add('oculto');
     if (formRecordatorio) formRecordatorio.reset();
     if (errorRecordatorio) errorRecordatorio.classList.add('oculto');
+    if (ultimoElementoEnfocado && typeof ultimoElementoEnfocado.focus === 'function') {
+      ultimoElementoEnfocado.focus();
+      ultimoElementoEnfocado = null;
+    }
   }
 
   document.querySelectorAll('.btn-configurar-recordatorio').forEach(btn => {
@@ -457,6 +552,11 @@ function iniciarFavoritosYRecordatorio() {
         return;
       }
 
+      const lista = obtenerJsonStorage(CLAVE_RECORDATORIOS, []);
+      lista.push({ punto: puntoSeleccionadoActual, fecha, hora });
+      guardarJsonStorage(CLAVE_RECORDATORIOS, lista);
+      renderizarRecordatorios();
+
       cerrarModal();
 
       if (feedbackGlobal) {
@@ -473,6 +573,8 @@ function iniciarFavoritosYRecordatorio() {
 
 function iniciarPanelReciclador() {
   const formAdmin = document.getElementById('form-admin-reciclador');
+  const selectPunto = document.getElementById('admin-punto');
+  const vistaPuntoNombre = document.getElementById('vista-punto-nombre');
   const chipsMateriales = document.querySelectorAll('.chip-material-admin');
   const selectDias = document.getElementById('admin-dias');
   const inputApertura = document.getElementById('admin-hora-apertura');
@@ -487,10 +589,14 @@ function iniciarPanelReciclador() {
 
   if (!formAdmin) return;
 
+  function obtenerMaterialesActivos() {
+    return Array.from(document.querySelectorAll('.chip-material-admin.seleccionado'))
+      .map(chip => chip.getAttribute('data-material') || chip.textContent.trim());
+  }
+
   function actualizarVistaMateriales() {
     if (!vistaMateriales) return;
-    const activos = Array.from(document.querySelectorAll('.chip-material-admin.seleccionado'))
-      .map(chip => chip.getAttribute('data-material') || chip.textContent.trim());
+    const activos = obtenerMaterialesActivos();
     vistaMateriales.textContent = activos.length > 0 ? activos.join(', ') : 'Ninguno seleccionado';
   }
 
@@ -514,13 +620,25 @@ function iniciarPanelReciclador() {
     return `${horas12}:${m} ${periodo}`;
   }
 
-  function actualizarVistaHorario() {
-    if (errorHorario) errorHorario.classList.add('oculto');
-    if (!vistaHorario) return;
+  function obtenerHorarioFormateado() {
     const dias = selectDias ? selectDias.value : 'Lunes a Sábado';
     const apertura = inputApertura && inputApertura.value ? formatearHora(inputApertura.value) : '8:00 am';
     const cierre = inputCierre && inputCierre.value ? formatearHora(inputCierre.value) : '4:00 pm';
-    vistaHorario.textContent = `${dias}: ${apertura} - ${cierre}`;
+    return `${dias}: ${apertura} - ${cierre}`;
+  }
+
+  function actualizarVistaHorario() {
+    if (errorHorario) errorHorario.classList.add('oculto');
+    if (vistaHorario) {
+      vistaHorario.textContent = obtenerHorarioFormateado();
+    }
+  }
+
+  if (selectPunto && vistaPuntoNombre) {
+    selectPunto.addEventListener('change', () => {
+      const texto = selectPunto.options[selectPunto.selectedIndex].text;
+      vistaPuntoNombre.textContent = texto;
+    });
   }
 
   if (selectDias) selectDias.addEventListener('change', actualizarVistaHorario);
@@ -532,7 +650,7 @@ function iniciarPanelReciclador() {
   formAdmin.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const seleccionados = document.querySelectorAll('.chip-material-admin.seleccionado');
+    const materialesActivos = obtenerMaterialesActivos();
     const aperturaVal = inputApertura ? inputApertura.value : '';
     const cierreVal = inputCierre ? inputCierre.value : '';
 
@@ -541,7 +659,7 @@ function iniciarPanelReciclador() {
       return;
     }
 
-    if (seleccionados.length === 0) {
+    if (materialesActivos.length === 0) {
       if (contenedorChips) contenedorChips.classList.add('campo-error');
       if (errorMateriales) {
         errorMateriales.textContent = 'Debes seleccionar al menos una categoría de material antes de publicar.';
@@ -553,6 +671,14 @@ function iniciarPanelReciclador() {
     if (contenedorChips) contenedorChips.classList.remove('campo-error');
     if (errorMateriales) errorMateriales.classList.add('oculto');
     if (errorHorario) errorHorario.classList.add('oculto');
+
+    const puntoId = selectPunto ? selectPunto.value : 'punto-reducto';
+    const cambios = obtenerJsonStorage(CLAVE_CRITERIOS_PUNTOS, {});
+    cambios[puntoId] = {
+      horario: obtenerHorarioFormateado(),
+      materiales: materialesActivos
+    };
+    guardarJsonStorage(CLAVE_CRITERIOS_PUNTOS, cambios);
 
     if (badgeEstado) {
       badgeEstado.textContent = 'Criterios publicados y visibles';

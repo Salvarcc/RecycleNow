@@ -894,11 +894,6 @@ function iniciarPanelReciclador() {
   const errorMateriales = document.getElementById('error-materiales-admin');
   const contenedorChips = document.getElementById('contenedor-chips-admin');
   const alertaConfirmacion = document.getElementById('alerta-publicacion-admin');
-  const btnSugerir = document.getElementById('btn-sugerir-criterios');
-  const boxSugerencia = document.getElementById('box-sugerencia-encargado');
-  const txtSugerencia = document.getElementById('texto-sugerencia-encargado');
-  const btnAplicarSug = document.getElementById('btn-aplicar-sugerencia');
-  const btnDescartarSug = document.getElementById('btn-descartar-sugerencia');
 
   if (!formAdmin) return;
 
@@ -956,38 +951,6 @@ function iniciarPanelReciclador() {
   if (selectDias) selectDias.addEventListener('change', actualizarVistaHorario);
   if (inputApertura) inputApertura.addEventListener('change', actualizarVistaHorario);
   if (inputCierre) inputCierre.addEventListener('change', actualizarVistaHorario);
-
-  if (btnSugerir && boxSugerencia && txtSugerencia) {
-    btnSugerir.addEventListener('click', () => {
-      const puntoNombre = selectPunto ? selectPunto.options[selectPunto.selectedIndex].text : 'este punto';
-      txtSugerencia.textContent = `Sugerencia para ${puntoNombre}: Lunes a Sábado de 8:00 am a 5:00 pm recibiendo Botellas de plástico, Cartón y Papel, Vidrio y Latas (los materiales de mayor demanda ciudadana).`;
-      boxSugerencia.classList.remove('oculto');
-    });
-
-    if (btnAplicarSug) {
-      btnAplicarSug.addEventListener('click', () => {
-        if (selectDias) selectDias.value = 'Lunes a Sábado';
-        if (inputApertura) inputApertura.value = '08:00';
-        if (inputCierre) inputCierre.value = '17:00';
-        const recomendados = ['Botellas de plástico', 'Cartón y Papel', 'Vidrio', 'Latas'];
-        chipsMateriales.forEach(chip => {
-          const mat = chip.getAttribute('data-material');
-          chip.classList.toggle('seleccionado', recomendados.includes(mat));
-        });
-        if (contenedorChips) contenedorChips.classList.remove('campo-error');
-        if (errorMateriales) errorMateriales.classList.add('oculto');
-        actualizarVistaHorario();
-        actualizarVistaMateriales();
-        boxSugerencia.classList.add('oculto');
-      });
-    }
-
-    if (btnDescartarSug) {
-      btnDescartarSug.addEventListener('click', () => {
-        boxSugerencia.classList.add('oculto');
-      });
-    }
-  }
 
   actualizarVistaMateriales();
 
